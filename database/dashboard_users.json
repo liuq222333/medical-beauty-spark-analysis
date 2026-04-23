@@ -1,0 +1,11 @@
+{
+  "next_user_id": 1,
+  "users": [],
+  "profiles": {
+    "admin": {
+      "display_name": "",
+      "email": "",
+      "avatar_path": null
+    }
+  }
+}

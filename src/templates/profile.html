@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>个人中心 — 医美数据分析系统</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_app.css') }}" />
+  <style>
+    .profile-page { max-width: 640px; margin: 0 auto; padding: 28px 20px 48px; }
+    .profile-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 26px 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08);
+      border: 1px solid rgba(125, 211, 252, 0.35);
+    }
+    .profile-card h3 {
+      margin: 0 0 20px;
+      font-size: 17px;
+      color: #0c4a6e;
+      font-weight: 600;
+    }
+    .avatar-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .avatar-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--theme-primary-soft, #e0f2fe);
+      background: #f0f9ff;
+      flex-shrink: 0;
+    }
+    .avatar-form-col {
+      flex: 1;
+      min-width: 240px;
+    }
+    /* 接近系统原生「选择文件 + 未选择文件」一行展示，再单独留空给说明与按钮 */
+    .avatar-file-row {
+      margin-bottom: 4px;
+    }
+    .avatar-file-row input[type="file"] {
+      width: 100%;
+      max-width: 420px;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 6px 0 16px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    .avatar-file-row input[type="file"]::file-selector-button {
+      padding: 8px 18px;
+      margin-right: 14px;
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #f0f9ff, #e0f2fe);
+      color: #0369a1;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .avatar-file-row input[type="file"]::-webkit-file-upload-button {
+      padding: 8px 18px;
+      margin-right: 14px;
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #f0f9ff, #e0f2fe);
+      color: #0369a1;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .avatar-hint {
+      margin: 0 0 22px;
+      padding: 0;
+      line-height: 1.7;
+      font-size: 13px;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+    }
+    .avatar-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .avatar-form-col .btn-theme {
+      margin-top: 0;
+    }
+    .profile-card label { display: block; font-size: 13px; color: #64748b; margin-bottom: 8px; }
+    .profile-card input[type="text"], .profile-card input[type="email"], .profile-card input[type="password"] {
+      width: 100%;
+      max-width: 400px;
+      padding: 11px 14px;
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      background: #fff;
+    }
+    .profile-card input:focus {
+      outline: none;
+      border-color: var(--theme-primary, #38bdf8);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+    .flash { padding: 12px 16px; border-radius: 10px; margin-bottom: 18px; font-size: 14px; }
+    .flash.ok { background: #d1fae5; color: #065f46; }
+    .flash.err { background: #fee2e2; color: #991b1b; }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 22px;
+      color: var(--theme-link, #0284c7);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .admin-hint {
+      margin: 0;
+      padding: 14px 16px;
+      line-height: 1.7;
+      font-size: 14px;
+      color: #475569;
+      background: #f0f9ff;
+      border-radius: 10px;
+      border: 1px solid #bae6fd;
+    }
+  </style>
+</head>
+<body class="app-body">
+  <div class="profile-page">
+    <a class="back-link" href="{{ url_for('index') }}">← 返回数据看板</a>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for cat, msg in messages %}
+        <div class="flash {{ 'ok' if cat == 'ok' else 'err' }}">{{ msg }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <div class="profile-card">
+      <h3>头像</h3>
+      <div class="avatar-row">
+        <img class="avatar-preview" src="{{ avatar_url }}" alt="头像" />
+        <div class="avatar-form-col">
+          <form method="post" action="{{ url_for('profile_avatar') }}" enctype="multipart/form-data">
+            <div class="avatar-file-row">
+              <input type="file" name="file" accept="image/png,image/jpeg,image/gif,image/webp" required />
+            </div>
+            <p class="avatar-hint">支持 PNG、JPG、GIF、WEBP，最大 2MB。</p>
+            <div class="avatar-actions">
+              <button type="submit" class="btn-theme">上传头像</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <h3>基本资料</h3>
+      <form method="post" action="{{ url_for('profile') }}">
+        <input type="hidden" name="action" value="info" />
+        <label>登录用户名（不可改）</label>
+        <input type="text" value="{{ profile.username }}" disabled style="background:#f0f9ff;color:#64748b;" />
+        <label for="display_name">昵称 / 显示名</label>
+        <input id="display_name" name="display_name" type="text" maxlength="64" value="{{ profile.display_name }}" placeholder="看板侧栏显示名称" />
+        <label for="email">邮箱</label>
+        <input id="email" name="email" type="email" value="{{ profile.email }}" placeholder="选填" />
+        <button type="submit" class="btn-theme">保存资料</button>
+      </form>
+    </div>
+
+    <div class="profile-card">
+      <h3>修改密码</h3>
+      {% if profile.is_registered %}
+      <form method="post" action="{{ url_for('profile') }}">
+        <input type="hidden" name="action" value="password" />
+        <label for="old_password">当前密码</label>
+        <input id="old_password" name="old_password" type="password" autocomplete="current-password" required />
+        <label for="new_password">新密码（至少 6 位）</label>
+        <input id="new_password" name="new_password" type="password" autocomplete="new-password" required minlength="6" />
+        <label for="new_password2">确认新密码</label>
+        <input id="new_password2" name="new_password2" type="password" autocomplete="new-password" required minlength="6" />
+        <button type="submit" class="btn-theme">修改密码</button>
+      </form>
+      {% else %}
+      <p class="admin-hint">当前为<strong>内置管理员</strong>登录。密码请在服务器上的配置文件 <code>config.py</code> 或环境变量 <code>DASHBOARD_PASS</code> 中修改。</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

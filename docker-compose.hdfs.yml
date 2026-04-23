@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: hdfs-namenode
+    environment:
+      - CLUSTER_NAME=medical-beauty
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+    ports:
+      - "9870:9870"
+      - "9000:9000"
+    volumes:
+      - namenode_data:/hadoop/dfs/name
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: hdfs-datanode
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+      - SERVICE_PRECONDITION=namenode:9870
+    depends_on:
+      - namenode
+    volumes:
+      - datanode_data:/hadoop/dfs/data
+
+volumes:
+  namenode_data:
+  datanode_data:

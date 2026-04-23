@@ -1,0 +1,6 @@
+若浏览器因「跟踪防护」拦截了在线 Mermaid 脚本，可将 Mermaid 库放到此目录后刷新页面：
+
+1. 打开 https://unpkg.com/mermaid@10/dist/mermaid.min.js
+2. 浏览器中右键 → 另存为（或 Ctrl+S）
+3. 保存到本目录，文件名为：mermaid.min.js
+4. 回到 功能模块图与架构图.html 刷新即可正常显示图表

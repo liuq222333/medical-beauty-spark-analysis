@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>医美数据分析系统</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_app.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body class="app-body">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">基于 Spark 的<br />医美数据分析系统</div>
+      <nav class="sidebar-nav">
+        <button type="button" class="nav-item active" data-panel="overview">数据概览</button>
+        <button type="button" class="nav-item" data-panel="city">地区分析</button>
+        <button type="button" class="nav-item" data-panel="trend">销售趋势</button>
+        <button type="button" class="nav-item" data-panel="region_pref">地区偏好</button>
+        <button type="button" class="nav-item" data-panel="category">品类分析</button>
+        <button type="button" class="nav-item" data-panel="price_discount">价格与折扣</button>
+        <button type="button" class="nav-item" data-panel="channel">渠道分析</button>
+        <button type="button" class="nav-item" data-panel="cluster">聚类分析</button>
+        <button type="button" class="nav-item" data-panel="cluster_deep">聚类深度分析</button>
+        <button type="button" class="nav-item" data-panel="about">关于系统</button>
+      </nav>
+      <div class="sidebar-footer" style="text-align:center;">
+        <a href="{{ url_for('profile') }}" style="text-decoration:none;color:inherit;display:block;">
+          <img src="{{ avatar_url }}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.2);margin:0 auto 8px;display:block;" />
+          <span style="color:#cbd5e1;font-size:13px;">{{ display_name }}</span>
+          <div style="font-size:11px;color:#64748b;margin-top:6px;">个人中心 ›</div>
+        </a>
+      </div>
+    </aside>
+    <div class="main-wrap">
+      <header class="top-header">
+        <h2 id="panelBreadcrumb">数据概览</h2>
+        <div class="actions" style="align-items:center;gap:12px;flex-wrap:wrap;">
+          <button type="button" class="btn primary" id="btnRefreshAll" style="margin-right:8px;">刷新全部数据</button>
+          <a href="{{ url_for('profile') }}">个人中心</a>
+          <a href="/logout">退出登录</a>
+        </div>
+      </header>
+      <main class="content-area">
+        <!-- 数据概览 -->
+        <section id="panel-overview" class="panel active">
+          <h3 class="panel-title">数据概览</h3>
+          <p class="panel-desc">汇总多维度指标：在顶部选择统计月份后，以下为该月（或全量）汇总。分析覆盖城市、商圈、品类、子类、门店、平台、标价/到手价/折扣率、月销量、评价数、评分、医生头衔等字段。</p>
+          <div class="toolbar">
+            <button type="button" class="primary" id="btnOverviewRefresh">刷新本页统计</button>
+          </div>
+          <div class="stats-row">
+            <div class="stat-card"><div class="label">当前样本行数</div><div class="value" id="statRows">—</div></div>
+            <div class="stat-card"><div class="label">月销量合计</div><div class="value" id="statSales">—</div></div>
+            <div class="stat-card"><div class="label">平均到手价（元）</div><div class="value" id="statAvgActual">—</div></div>
+            <div class="stat-card"><div class="label">平均折扣率</div><div class="value" id="statAvgDisc">—</div></div>
+            <div class="stat-card"><div class="label">平均评分</div><div class="value" id="statAvgRating">—</div></div>
+            <div class="stat-card"><div class="label">统计城市数</div><div class="value" id="statCities">—</div></div>
+            <div class="stat-card"><div class="label">品类数</div><div class="value" id="statCategories">—</div></div>
+            <div class="stat-card"><div class="label">渠道数</div><div class="value" id="statChannels">—</div></div>
+          </div>
+          <div class="overview-charts">
+            <div class="chart-box" id="chartOverviewCity"></div>
+            <div class="chart-box" id="chartOverviewCat"></div>
+          </div>
+        </section>
+
+        <!-- 地区分析 -->
+        <section id="panel-city" class="panel">
+          <h3 class="panel-title">地区分析</h3>
+          <p class="panel-desc">各城市月销量合计、均价与折扣（随顶部统计月份筛选变化）。</p>
+          <div class="toolbar">
+            <label style="font-size:13px;color:#64748b;display:inline-flex;align-items:center;gap:6px;">
+            统计月份
+            <select id="selectStatsMonth" style="padding:6px 10px;border-radius:6px;border:1px solid #cbd5e1;background:#fff;min-width:140px;">
+              <option value="all">全部（所有采集批次）</option>
+            </select>
+          </label>
+            <button type="button" class="primary" id="btnCityRefresh">刷新图表</button>
+            <button type="button" id="btnCityToggleTop">显示全部城市</button>
+            <button type="button" id="btnCityExport">导出 CSV</button>
+          </div>
+          <div class="chart-box" id="chartCity"></div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>城市</th><th>月销量合计</th><th>项目数</th><th>平均评分</th><th>平均到手价</th><th>平均折扣率</th></tr></thead>
+              <tbody id="tbodyCity"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 销售趋势 -->
+        <section id="panel-trend" class="panel">
+          <h3 class="panel-title">项目销售趋势</h3>
+          <p class="panel-desc">按「统计月份」展示全量时间轴上的月销量与项目条数变化；右侧为当前筛选条件下热销项目名称 TOP。</p>
+          <div class="toolbar">
+            <button type="button" class="primary" id="btnTrendRefresh">刷新图表</button>
+            <button type="button" id="btnTrendExportMonth">导出分月汇总 CSV</button>
+            <button type="button" id="btnTrendExportProj">导出项目 TOP CSV</button>
+          </div>
+          <div class="overview-charts">
+            <div class="chart-box" id="chartTrendMonth"></div>
+            <div class="chart-box" id="chartTopProjects"></div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>统计月份</th><th>月销量合计</th><th>项目条数</th><th>平均评分</th><th>平均到手价</th></tr></thead>
+              <tbody id="tbodyTrendMonth"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 地区偏好 -->
+        <section id="panel-region_pref" class="panel">
+          <h3 class="panel-title">地区消费偏好</h3>
+          <p class="panel-desc">商圈/区县销量结构，以及城市×品类联合热度（偏好组合）。</p>
+          <div class="toolbar">
+            <button type="button" class="primary" id="btnRegionRefresh">刷新</button>
+            <button type="button" id="btnExportDistrict">导出商圈 CSV</button>
+            <button type="button" id="btnExportCityCat">导出城市-品类 CSV</button>
+          </div>
+          <div class="overview-charts">
+            <div class="chart-box" id="chartDistrict"></div>
+            <div class="chart-box" id="chartCityCategory"></div>
+          </div>
+          <div class="table-wrap">
+            <h4 style="margin:12px 0 8px;font-size:14px;">商圈/区县 TOP</h4>
+            <table class="data-table">
+              <thead><tr><th>商圈区县</th><th>月销量合计</th><th>项目数</th><th>平均到手价</th><th>平均评分</th></tr></thead>
+              <tbody id="tbodyDistrict"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 品类分析 -->
+        <section id="panel-category" class="panel">
+          <h3 class="panel-title">品类分析</h3>
+          <p class="panel-desc">项目品类销量占比及均价、折扣、评分（随月份筛选）。</p>
+          <div class="toolbar">
+            <button type="button" class="primary" id="btnCatRefresh">刷新图表</button>
+            <button type="button" id="btnCatExport">导出 CSV</button>
+          </div>
+          <div class="chart-box" id="chartCategory"></div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>项目品类</th><th>月销量合计</th><th>项目数</th><th>平均到手价</th><th>平均折扣</th><th>平均评分</th></tr></thead>
+              <tbody id="tbodyCategory"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 价格与折扣 -->
+        <section id="panel-price_discount" class="panel">
+          <h3 class="panel-title">价格与折扣</h3>
+          <p class="panel-desc">折扣率分桶与平均月销量、医生头衔维度的价格与口碑（理解促销与供给结构）。</p>
+          <div class="toolbar">
+            <button type="button" class="primary" id="btnPriceRefresh">刷新</button>
+            <button type="button" id="btnExportDiscount">导出折扣分桶 CSV</button>
+            <button type="button" id="btnExportDoctorTitle">导出医生头衔 CSV</button>
+          </div>
+          <div class="overview-charts">
+            <div class="chart-box" id="chartDiscountBand"></div>
+            <div class="chart-box" id="chartDoctorTitle"></div>
+          </div>
+          <div class="table-wrap">
+            <h4 style="margin:12px 0 8px;font-size:14px;">门店类型 × 销量</h4>
+            <table class="data-table">
+              <thead><tr><th>门店类型</th><th>月销量合计</th><th>项目数</th><th>平均到手价</th></tr></thead>
+              <tbody id="tbodyStoreType"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 渠道分析 -->
+        <section id="panel-channel" class="panel">
+          <h3 class="panel-title">渠道分析</h3>
+          <p class="panel-desc">各平台/渠道销量与平均评分（含多平台字段时）。</p>
+          <div class="toolbar">
+            <button type="button" class="primary" id="btnChRefresh">刷新图表</button>
+            <button type="button" id="btnChExport">导出 CSV</button>
+          </div>
+          <div class="chart-box" id="chartChannel"></div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>渠道</th><th>销量合计</th><th>记录数</th><th>平均评分</th></tr></thead>
+              <tbody id="tbodyChannel"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 聚类分析 -->
+        <section id="panel-cluster" class="panel">
+          <h3 class="panel-title">聚类分析</h3>
+          <p class="panel-desc">K-Means 聚类中心（标准化特征空间）分组柱状图与数据表。</p>
+          <div class="toolbar">
+            <button type="button" class="primary" id="btnClusterRefresh">刷新</button>
+            <button type="button" id="btnClusterExport">导出聚类中心 CSV</button>
+          </div>
+          <div class="chart-box" id="chartCluster"></div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead id="clusterThead"><tr><th>加载中</th></tr></thead>
+              <tbody id="tbodyCluster"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 聚类深度分析 -->
+        <section id="panel-cluster_deep" class="panel">
+          <h3 class="panel-title">聚类深度分析（数据仓库 DWS 层）</h3>
+          <p class="panel-desc">
+            基于 K-Means 聚类结果派生的 8 张主题宽表，使用 Spark SQL 的 CTE、窗口函数（ROW_NUMBER / RANK / PERCENT_RANK / LAG）、多表 JOIN 与多条件 CASE WHEN 构造。
+            数据来自 <code>output/cluster_tables/*.parquet</code>，聚合结果通过 <code>/api/cluster_insights</code> 读取。
+          </p>
+
+          <div class="toolbar">
+            <button type="button" class="primary" id="btnDeepRefresh">刷新</button>
+            <button type="button" id="btnExportProfile">导出聚类画像 CSV</button>
+            <button type="button" id="btnExportCityRank">导出聚类×城市 CSV</button>
+            <button type="button" id="btnExportCatPref">导出品类偏好 CSV</button>
+            <button type="button" id="btnExportTopProj">导出聚类 TOP 项目 CSV</button>
+            <button type="button" id="btnExportDocMatch">导出聚类×医生 CSV</button>
+          </div>
+
+          <h4 class="sub-title">一、聚类画像卡片（带业务标签）</h4>
+          <div id="clusterCards" class="cluster-cards"></div>
+
+          <h4 class="sub-title">二、主题分析图表</h4>
+          <div class="overview-charts">
+            <div class="chart-box" id="chartDeepCity"></div>
+            <div class="chart-box" id="chartDeepCatPref"></div>
+          </div>
+          <div class="overview-charts">
+            <div class="chart-box" id="chartDeepBand"></div>
+            <div class="chart-box" id="chartDeepMonth"></div>
+          </div>
+          <div class="overview-charts">
+            <div class="chart-box" id="chartDeepChannel"></div>
+            <div class="chart-box" id="chartDeepDoctor"></div>
+          </div>
+
+          <h4 class="sub-title">三、聚类画像明细</h4>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr>
+                <th>簇</th><th>业务标签</th><th>折扣等级</th>
+                <th>项目数</th><th>销量合计</th>
+                <th>均标价</th><th>均到手价</th><th>均折扣</th>
+                <th>均月销量</th><th>均评价数</th><th>均评分</th>
+                <th>价格排名</th><th>销量排名</th>
+              </tr></thead>
+              <tbody id="tbodyClusterProfile"></tbody>
+            </table>
+          </div>
+
+          <h4 class="sub-title">四、聚类内 TOP 5 项目（ROW_NUMBER 窗口函数）</h4>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr>
+                <th>簇</th><th>排名</th><th>项目名称</th>
+                <th>销量合计</th><th>均到手价</th><th>均评分</th><th>上架条数</th>
+              </tr></thead>
+              <tbody id="tbodyClusterTopProj"></tbody>
+            </table>
+          </div>
+
+          <h4 class="sub-title">五、聚类×医生头衔（COUNT DISTINCT + RANK）</h4>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr>
+                <th>簇</th><th>医生头衔</th><th>簇内排名</th>
+                <th>项目数</th><th>医生数</th>
+                <th>销量合计</th><th>均评分</th><th>均到手价</th>
+              </tr></thead>
+              <tbody id="tbodyClusterDoctor"></tbody>
+            </table>
+          </div>
+
+          <h4 class="sub-title">六、聚类×折扣分桶（CASE WHEN + PERCENT_RANK）</h4>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr>
+                <th>簇</th><th>折扣分桶</th><th>项目数</th>
+                <th>销量合计</th><th>均销量</th>
+                <th>均评分</th><th>均到手价</th>
+                <th>簇内销量百分位</th>
+              </tr></thead>
+              <tbody id="tbodyClusterBand"></tbody>
+            </table>
+          </div>
+
+          <div class="deep-meta" id="deepMeta"></div>
+        </section>
+
+        <!-- 关于系统 -->
+        <section id="panel-about" class="panel">
+          <h3 class="panel-title">关于系统</h3>
+          <div class="about-box">
+            <p><strong>基于 Spark 的医美数据分析系统</strong>面向医美项目销售数据，提供采集与预处理、Parquet/HDFS 存储检查、Spark 聚类与趋势统计，以及本 Web 分析看板。</p>
+            <ul>
+              <li><strong>数据流</strong>：CSV → Pandas 清洗（含「统计月份」= 采集日期的年月）→ Parquet/HDFS → Spark 多维 SQL 分析 → JSON 指标；看板通过 <code>/api/analytics</code> 读取 JSON 快照并支持按月份汇总。</li>
+              <li><strong>技术栈</strong>：Python、PySpark、Pandas、Flask、ECharts、JSON。</li>
+              <li><strong>账号</strong>：支持管理员默认账号与注册用户登录；用户数据存储于本地 JSON 文件。</li>
+            </ul>
+            <p>使用左侧导航切换功能模块；各分析页提供「刷新」「导出」等操作。</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div id="msgToast" class="msg-toast"></div>
+  <script src="{{ url_for('static', filename='js/dashboard_app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>注册 — 医美数据分析系统</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      background: linear-gradient(160deg, #e0f2fe 0%, #bae6fd 40%, #7dd3fc 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(14, 165, 233, 0.2);
+      padding: 36px 32px;
+      border: 1px solid rgba(125, 211, 252, 0.5);
+    }
+    h1 { margin: 0 0 8px; font-size: 1.35rem; color: #0c4a6e; text-align: center; }
+    .subtitle { text-align: center; color: #0369a1; font-size: 13px; margin-bottom: 24px; }
+    label { display: block; font-size: 13px; color: #334155; margin-bottom: 6px; }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 16px;
+      background: #fff;
+    }
+    input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+      cursor: pointer;
+      margin-top: 8px;
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
+    }
+    button[type="submit"]:hover { filter: brightness(1.05); }
+    .error {
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .links { margin-top: 20px; text-align: center; font-size: 14px; }
+    .links a { color: #0284c7; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>用户注册</h1>
+    <p class="subtitle">创建看板登录账号（本地 JSON 存储）</p>
+    {% if error_msg %}
+    <div class="error">{{ error_msg }}</div>
+    {% endif %}
+    <form method="post" action="{{ url_for('register') }}">
+      <label for="username">用户名</label>
+      <input id="username" name="username" type="text" autocomplete="username" required minlength="2" maxlength="24" />
+      <label for="password">密码（至少 6 位）</label>
+      <input id="password" name="password" type="password" autocomplete="new-password" required minlength="6" />
+      <label for="password2">确认密码</label>
+      <input id="password2" name="password2" type="password" autocomplete="new-password" required minlength="6" />
+      <button type="submit">注 册</button>
+    </form>
+    <div class="links"><a href="{{ url_for('login') }}">已有账号？去登录</a></div>
+  </div>
+</body>
+</html>
