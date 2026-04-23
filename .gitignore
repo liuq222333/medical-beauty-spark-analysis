@@ -52,3 +52,18 @@ logs/
 metastore_db/
 spark-warehouse/
 derby.log
+*.crc
+_SUCCESS
+
+# 项目特定：旧 GBK CSV 与过期数据库（已被 medical_beauty_data.csv 与 Parquet 流程取代）
+data/中国医美消费数据.csv
+database/medical_beauty.db
+
+# 运行时上传的头像（由 Flask 动态创建）
+src/static/uploads/avatars/*
+!src/static/uploads/avatars/.gitkeep
+
+# 本地截图 / 临时图片（放在项目根目录的都忽略）
+/*.png
+/*.jpg
+/*.jpeg
