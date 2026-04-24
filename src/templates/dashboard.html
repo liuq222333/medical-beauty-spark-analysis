@@ -207,7 +207,7 @@
 
         <!-- 聚类深度分析 -->
         <section id="panel-cluster_deep" class="panel">
-          <h3 class="panel-title">聚类深度分析（数据仓库 DWS 层）</h3>
+          <h3 class="panel-title">聚类深度分析</h3>
           <p class="panel-desc">
             基于 K-Means 聚类结果派生的 8 张主题宽表，使用 Spark SQL 的 CTE、窗口函数（ROW_NUMBER / RANK / PERCENT_RANK / LAG）、多表 JOIN 与多条件 CASE WHEN 构造。
             数据来自 <code>output/cluster_tables/*.parquet</code>，聚合结果通过 <code>/api/cluster_insights</code> 读取。
