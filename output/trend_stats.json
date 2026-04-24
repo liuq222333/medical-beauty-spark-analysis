@@ -1,0 +1,1836 @@
+{
+  "available_months": [
+    {
+      "stats_month": "2025-08",
+      "row_cnt": 62363
+    },
+    {
+      "stats_month": "2025-09",
+      "row_cnt": 62363
+    }
+  ],
+  "sales_trend_by_month": [
+    {
+      "stats_month": "2025-08",
+      "total_sales": 7478782.0,
+      "project_count": 62363,
+      "avg_rating": 4.444185494604236,
+      "avg_actual_price": 3486.592851530555,
+      "avg_list_price": 5503.002886326828,
+      "avg_discount": 0.6595614691403406
+    },
+    {
+      "stats_month": "2025-09",
+      "total_sales": 7481841.0,
+      "project_count": 62363,
+      "avg_rating": 4.445917451052778,
+      "avg_actual_price": 3459.9009508843383,
+      "avg_list_price": 5439.031300610939,
+      "avg_discount": 0.6598120632426049
+    }
+  ],
+  "summary": {
+    "row_cnt": 124726,
+    "total_sales": 14960623.0,
+    "avg_rating": 4.4450514728282515,
+    "avg_actual_price": 3473.2469012074466,
+    "avg_list_price": 5471.017093468884,
+    "avg_discount": 0.6596867661914921,
+    "avg_review_count": 69.09277135480974
+  },
+  "by_city": [
+    {
+      "city": "北京",
+      "total_sales": 763087.0,
+      "project_count": 6408,
+      "avg_rating": 4.4401186017478205,
+      "avg_actual_price": 3433.9965667915108,
+      "avg_discount": 0.6603188826466909
+    },
+    {
+      "city": "青岛",
+      "total_sales": 761816.0,
+      "project_count": 6284,
+      "avg_rating": 4.451874602164221,
+      "avg_actual_price": 3465.182367918523,
+      "avg_discount": 0.6619838796944626
+    },
+    {
+      "city": "重庆",
+      "total_sales": 757008.0,
+      "project_count": 6252,
+      "avg_rating": 4.44548944337813,
+      "avg_actual_price": 3392.0990083173383,
+      "avg_discount": 0.6604428502879065
+    },
+    {
+      "city": "合肥",
+      "total_sales": 756433.0,
+      "project_count": 6227,
+      "avg_rating": 4.444909266099244,
+      "avg_actual_price": 3469.605749156897,
+      "avg_discount": 0.6614635940260148
+    },
+    {
+      "city": "武汉",
+      "total_sales": 756150.0,
+      "project_count": 6292,
+      "avg_rating": 4.446492371265092,
+      "avg_actual_price": 3491.1360457724095,
+      "avg_discount": 0.6597376191989818
+    },
+    {
+      "city": "上海",
+      "total_sales": 755711.0,
+      "project_count": 6287,
+      "avg_rating": 4.442452680133598,
+      "avg_actual_price": 3462.3589947510736,
+      "avg_discount": 0.6568760299029764
+    },
+    {
+      "city": "西安",
+      "total_sales": 753562.0,
+      "project_count": 6274,
+      "avg_rating": 4.445352247370097,
+      "avg_actual_price": 3516.7110296461587,
+      "avg_discount": 0.6575470194453296
+    },
+    {
+      "city": "东莞",
+      "total_sales": 752905.0,
+      "project_count": 6224,
+      "avg_rating": 4.447334511568118,
+      "avg_actual_price": 3483.597525706941,
+      "avg_discount": 0.6569866002570691
+    },
+    {
+      "city": "郑州",
+      "total_sales": 752522.0,
+      "project_count": 6293,
+      "avg_rating": 4.444589226124266,
+      "avg_actual_price": 3504.3154298426825,
+      "avg_discount": 0.660956618464961
+    },
+    {
+      "city": "长沙",
+      "total_sales": 752337.0,
+      "project_count": 6307,
+      "avg_rating": 4.443294751863011,
+      "avg_actual_price": 3397.5237038211512,
+      "avg_discount": 0.6601926272395754
+    },
+    {
+      "city": "厦门",
+      "total_sales": 749689.0,
+      "project_count": 6267,
+      "avg_rating": 4.44315621509494,
+      "avg_actual_price": 3461.658050103718,
+      "avg_discount": 0.6582004467847461
+    },
+    {
+      "city": "苏州",
+      "total_sales": 746521.0,
+      "project_count": 6236,
+      "avg_rating": 4.442766196279649,
+      "avg_actual_price": 3456.433290570879,
+      "avg_discount": 0.6586133418858227
+    },
+    {
+      "city": "成都",
+      "total_sales": 745499.0,
+      "project_count": 6207,
+      "avg_rating": 4.4457709038182625,
+      "avg_actual_price": 3434.39423231835,
+      "avg_discount": 0.6552661350088594
+    },
+    {
+      "city": "佛山",
+      "total_sales": 744075.0,
+      "project_count": 6153,
+      "avg_rating": 4.444493742889647,
+      "avg_actual_price": 3522.245083699009,
+      "avg_discount": 0.6610136843816008
+    },
+    {
+      "city": "杭州",
+      "total_sales": 742302.0,
+      "project_count": 6219,
+      "avg_rating": 4.441271908666984,
+      "avg_actual_price": 3444.103392828429,
+      "avg_discount": 0.6620174947740805
+    },
+    {
+      "city": "天津",
+      "total_sales": 739523.0,
+      "project_count": 6202,
+      "avg_rating": 4.439853273137705,
+      "avg_actual_price": 3577.153015156401,
+      "avg_discount": 0.6604797162205728
+    },
+    {
+      "city": "广州",
+      "total_sales": 738818.0,
+      "project_count": 6139,
+      "avg_rating": 4.451369929956006,
+      "avg_actual_price": 3440.115654015312,
+      "avg_discount": 0.6601634793940402
+    },
+    {
+      "city": "宁波",
+      "total_sales": 736888.0,
+      "project_count": 6154,
+      "avg_rating": 4.444016899577514,
+      "avg_actual_price": 3562.6535586610335,
+      "avg_discount": 0.6609791517712079
+    },
+    {
+      "city": "南京",
+      "total_sales": 728173.0,
+      "project_count": 6185,
+      "avg_rating": 4.445569927243315,
+      "avg_actual_price": 3456.308488278092,
+      "avg_discount": 0.6589254324979783
+    },
+    {
+      "city": "深圳",
+      "total_sales": 727604.0,
+      "project_count": 6116,
+      "avg_rating": 4.451142903858728,
+      "avg_actual_price": 3496.9501308044473,
+      "avg_discount": 0.6616197841726605
+    }
+  ],
+  "by_category": [
+    {
+      "category": "注射",
+      "total_sales": 3501616.0,
+      "project_count": 29262,
+      "avg_actual_price": 2661.819868771786,
+      "avg_discount": 0.6682224830838693,
+      "avg_rating": 4.444165812316328
+    },
+    {
+      "category": "皮肤管理",
+      "total_sales": 3483456.0,
+      "project_count": 28971,
+      "avg_actual_price": 756.6285250768009,
+      "avg_discount": 0.666165178972077,
+      "avg_rating": 4.445837216526856
+    },
+    {
+      "category": "光电",
+      "total_sales": 3228391.0,
+      "project_count": 26898,
+      "avg_actual_price": 4491.620492229906,
+      "avg_discount": 0.6575845044241209,
+      "avg_rating": 4.446822068555245
+    },
+    {
+      "category": "口腔",
+      "total_sales": 2421341.0,
+      "project_count": 20186,
+      "avg_actual_price": 2272.778014465471,
+      "avg_discount": 0.6614228574259409,
+      "avg_rating": 4.444514515010416
+    },
+    {
+      "category": "外科",
+      "total_sales": 2325819.0,
+      "project_count": 19409,
+      "avg_actual_price": 8588.790251944974,
+      "avg_discount": 0.6382556597454825,
+      "avg_rating": 4.443318563553034
+    }
+  ],
+  "by_channel": [
+    {
+      "channel": "自然",
+      "total_sales": 6711755.0,
+      "count": 55940,
+      "avg_rating": 4.444590632820941
+    },
+    {
+      "channel": "团购",
+      "total_sales": 3040215.0,
+      "count": 25261,
+      "avg_rating": 4.444051700249397
+    },
+    {
+      "channel": "投放",
+      "total_sales": 2671416.0,
+      "count": 22293,
+      "avg_rating": 4.446988292289043
+    },
+    {
+      "channel": "私域",
+      "total_sales": 1486993.0,
+      "count": 12430,
+      "avg_rating": 4.442633145615465
+    },
+    {
+      "channel": "转介绍",
+      "total_sales": 1050244.0,
+      "count": 8802,
+      "avg_rating": 4.44935923653717
+    }
+  ],
+  "by_district": [
+    {
+      "district": "高新",
+      "total_sales": 492389.0,
+      "project_count": 4117,
+      "avg_actual_price": 3493.3738158853535,
+      "avg_rating": 4.43954335681321
+    },
+    {
+      "district": "江北",
+      "total_sales": 254470.0,
+      "project_count": 2097,
+      "avg_actual_price": 3404.016213638531,
+      "avg_rating": 4.432551263710054
+    },
+    {
+      "district": "东城",
+      "total_sales": 240258.0,
+      "project_count": 1993,
+      "avg_actual_price": 3293.8966382338185,
+      "avg_rating": 4.443808329152037
+    },
+    {
+      "district": "禅城",
+      "total_sales": 152945.0,
+      "project_count": 1263,
+      "avg_actual_price": 3595.4576405384005,
+      "avg_rating": 4.438186856690416
+    },
+    {
+      "district": "顺德",
+      "total_sales": 152230.0,
+      "project_count": 1256,
+      "avg_actual_price": 3486.7810509554142,
+      "avg_rating": 4.438240445859871
+    },
+    {
+      "district": "三水",
+      "total_sales": 150993.0,
+      "project_count": 1236,
+      "avg_actual_price": 3419.8697411003236,
+      "avg_rating": 4.454724919093857
+    },
+    {
+      "district": "高明",
+      "total_sales": 146273.0,
+      "project_count": 1222,
+      "avg_actual_price": 3484.9484451718495,
+      "avg_rating": 4.457986906710306
+    },
+    {
+      "district": "南海",
+      "total_sales": 141634.0,
+      "project_count": 1176,
+      "avg_actual_price": 3627.8469387755104,
+      "avg_rating": 4.433171768707478
+    },
+    {
+      "district": "李沧",
+      "total_sales": 132983.0,
+      "project_count": 1069,
+      "avg_actual_price": 3403.1487371375115,
+      "avg_rating": 4.446239476145926
+    },
+    {
+      "district": "昆山",
+      "total_sales": 132294.0,
+      "project_count": 1092,
+      "avg_actual_price": 3435.4725274725274,
+      "avg_rating": 4.4486813186813094
+    },
+    {
+      "district": "天心",
+      "total_sales": 132062.0,
+      "project_count": 1118,
+      "avg_actual_price": 3205.4892665474063,
+      "avg_rating": 4.445035778175317
+    },
+    {
+      "district": "滨江",
+      "total_sales": 131150.0,
+      "project_count": 1054,
+      "avg_actual_price": 3405.157495256167,
+      "avg_rating": 4.4331688804554075
+    },
+    {
+      "district": "成华",
+      "total_sales": 130942.0,
+      "project_count": 1069,
+      "avg_actual_price": 3391.3592142188963,
+      "avg_rating": 4.433835360149672
+    },
+    {
+      "district": "江岸",
+      "total_sales": 130635.0,
+      "project_count": 1084,
+      "avg_actual_price": 3394.489852398524,
+      "avg_rating": 4.439797047970476
+    },
+    {
+      "district": "青山",
+      "total_sales": 130486.0,
+      "project_count": 1089,
+      "avg_actual_price": 3533.6078971533516,
+      "avg_rating": 4.454921946740131
+    },
+    {
+      "district": "碑林",
+      "total_sales": 130251.0,
+      "project_count": 1091,
+      "avg_actual_price": 3662.466544454629,
+      "avg_rating": 4.461044912923922
+    },
+    {
+      "district": "中原",
+      "total_sales": 130245.0,
+      "project_count": 1083,
+      "avg_actual_price": 3347.9021237303787,
+      "avg_rating": 4.434727608494921
+    },
+    {
+      "district": "庐阳",
+      "total_sales": 130137.0,
+      "project_count": 1074,
+      "avg_actual_price": 3480.418063314711,
+      "avg_rating": 4.439338919925514
+    },
+    {
+      "district": "黄岛",
+      "total_sales": 130066.0,
+      "project_count": 1068,
+      "avg_actual_price": 3511.9166666666665,
+      "avg_rating": 4.455018726591767
+    },
+    {
+      "district": "河西",
+      "total_sales": 129658.0,
+      "project_count": 1078,
+      "avg_actual_price": 3530.4443413729127,
+      "avg_rating": 4.432365491651208
+    },
+    {
+      "district": "园区",
+      "total_sales": 129539.0,
+      "project_count": 1075,
+      "avg_actual_price": 3570.5079069767444,
+      "avg_rating": 4.434586046511627
+    },
+    {
+      "district": "二七",
+      "total_sales": 129188.0,
+      "project_count": 1088,
+      "avg_actual_price": 3666.4604779411766,
+      "avg_rating": 4.450542279411763
+    },
+    {
+      "district": "经开",
+      "total_sales": 128795.0,
+      "project_count": 1038,
+      "avg_actual_price": 3532.7263969171486,
+      "avg_rating": 4.4571965317919044
+    },
+    {
+      "district": "拱墅",
+      "total_sales": 128465.0,
+      "project_count": 1095,
+      "avg_actual_price": 3415.1826484018266,
+      "avg_rating": 4.451662100456628
+    },
+    {
+      "district": "莞城",
+      "total_sales": 128218.0,
+      "project_count": 1060,
+      "avg_actual_price": 3504.8622641509432,
+      "avg_rating": 4.4635566037735845
+    },
+    {
+      "district": "雁塔",
+      "total_sales": 128142.0,
+      "project_count": 1035,
+      "avg_actual_price": 3505.126570048309,
+      "avg_rating": 4.438898550724638
+    },
+    {
+      "district": "市南",
+      "total_sales": 128115.0,
+      "project_count": 1080,
+      "avg_actual_price": 3469.142592592593,
+      "avg_rating": 4.456046296296295
+    },
+    {
+      "district": "瑶海",
+      "total_sales": 127920.0,
+      "project_count": 1067,
+      "avg_actual_price": 3355.796626054358,
+      "avg_rating": 4.444329896907221
+    },
+    {
+      "district": "蜀山",
+      "total_sales": 127816.0,
+      "project_count": 1046,
+      "avg_actual_price": 3557.810707456979,
+      "avg_rating": 4.444684512428299
+    },
+    {
+      "district": "九龙坡",
+      "total_sales": 127800.0,
+      "project_count": 1031,
+      "avg_actual_price": 3498.070805043647,
+      "avg_rating": 4.441251212415131
+    },
+    {
+      "district": "思明",
+      "total_sales": 127768.0,
+      "project_count": 1059,
+      "avg_actual_price": 3445.3729933899904,
+      "avg_rating": 4.44703493862134
+    },
+    {
+      "district": "秦淮",
+      "total_sales": 127698.0,
+      "project_count": 1059,
+      "avg_actual_price": 3575.9169027384323,
+      "avg_rating": 4.439612842304061
+    },
+    {
+      "district": "开福",
+      "total_sales": 127492.0,
+      "project_count": 1033,
+      "avg_actual_price": 3350.4956437560504,
+      "avg_rating": 4.447773475314614
+    },
+    {
+      "district": "海沧",
+      "total_sales": 127395.0,
+      "project_count": 1063,
+      "avg_actual_price": 3616.7177798682974,
+      "avg_rating": 4.437591721542798
+    },
+    {
+      "district": "河东",
+      "total_sales": 127306.0,
+      "project_count": 1055,
+      "avg_actual_price": 3611.4189573459716,
+      "avg_rating": 4.423071090047395
+    },
+    {
+      "district": "未央",
+      "total_sales": 126986.0,
+      "project_count": 1066,
+      "avg_actual_price": 3587.140712945591,
+      "avg_rating": 4.444437148217638
+    },
+    {
+      "district": "白云",
+      "total_sales": 126499.0,
+      "project_count": 1039,
+      "avg_actual_price": 3490.0394610202115,
+      "avg_rating": 4.4557266602502485
+    },
+    {
+      "district": "翔安",
+      "total_sales": 126400.0,
+      "project_count": 1034,
+      "avg_actual_price": 3305.840425531915,
+      "avg_rating": 4.429226305609284
+    },
+    {
+      "district": "长安",
+      "total_sales": 126395.0,
+      "project_count": 1053,
+      "avg_actual_price": 3578.1813865147196,
+      "avg_rating": 4.45738841405508
+    },
+    {
+      "district": "惠济",
+      "total_sales": 126341.0,
+      "project_count": 1043,
+      "avg_actual_price": 3494.0604026845635,
+      "avg_rating": 4.440719079578137
+    }
+  ],
+  "by_subcategory": [
+    {
+      "subcategory": "贴面修复",
+      "total_sales": 1165605.0,
+      "project_count": 9696
+    },
+    {
+      "subcategory": "冷光美白",
+      "total_sales": 1161926.0,
+      "project_count": 9710
+    },
+    {
+      "subcategory": "祛痘护理",
+      "total_sales": 893734.0,
+      "project_count": 7375
+    },
+    {
+      "subcategory": "肉毒毒素",
+      "total_sales": 887053.0,
+      "project_count": 7402
+    },
+    {
+      "subcategory": "玻尿酸",
+      "total_sales": 877268.0,
+      "project_count": 7333
+    },
+    {
+      "subcategory": "皮秒激光",
+      "total_sales": 875927.0,
+      "project_count": 7375
+    },
+    {
+      "subcategory": "修复补水",
+      "total_sales": 875780.0,
+      "project_count": 7226
+    },
+    {
+      "subcategory": "超声炮",
+      "total_sales": 875747.0,
+      "project_count": 7285
+    },
+    {
+      "subcategory": "光子嫩肤",
+      "total_sales": 874555.0,
+      "project_count": 7259
+    },
+    {
+      "subcategory": "童颜针",
+      "total_sales": 873478.0,
+      "project_count": 7269
+    },
+    {
+      "subcategory": "嗨体",
+      "total_sales": 863817.0,
+      "project_count": 7258
+    },
+    {
+      "subcategory": "深层清洁",
+      "total_sales": 861002.0,
+      "project_count": 7205
+    },
+    {
+      "subcategory": "双眼皮",
+      "total_sales": 856828.0,
+      "project_count": 7207
+    },
+    {
+      "subcategory": "水光针",
+      "total_sales": 852940.0,
+      "project_count": 7165
+    },
+    {
+      "subcategory": "吸脂",
+      "total_sales": 793273.0,
+      "project_count": 6565
+    },
+    {
+      "subcategory": "热玛吉",
+      "total_sales": 602162.0,
+      "project_count": 4979
+    },
+    {
+      "subcategory": "脂肪填充",
+      "total_sales": 436864.0,
+      "project_count": 3655
+    },
+    {
+      "subcategory": "隆鼻",
+      "total_sales": 238854.0,
+      "project_count": 1982
+    },
+    {
+      "subcategory": "隐形矫正",
+      "total_sales": 93810.0,
+      "project_count": 780
+    }
+  ],
+  "by_store_type": [
+    {
+      "store_type": "民营",
+      "total_sales": 11662435.0,
+      "project_count": 97253,
+      "avg_actual_price": 3481.0757508765796
+    },
+    {
+      "store_type": "公立",
+      "total_sales": 3298188.0,
+      "project_count": 27473,
+      "avg_actual_price": 3445.5331780293377
+    }
+  ],
+  "by_platform": [
+    {
+      "platform": "新氧",
+      "total_sales": 5217680.0,
+      "project_count": 43507,
+      "avg_rating": 4.446322660721255
+    },
+    {
+      "platform": "美团医美",
+      "total_sales": 4199756.0,
+      "project_count": 35014,
+      "avg_rating": 4.44461558233854
+    },
+    {
+      "platform": "大众点评医美",
+      "total_sales": 2960480.0,
+      "project_count": 24812,
+      "avg_rating": 4.445074963727225
+    },
+    {
+      "platform": "机构官网",
+      "total_sales": 1524804.0,
+      "project_count": 12585,
+      "avg_rating": 4.441725864123973
+    },
+    {
+      "platform": "悦美",
+      "total_sales": 1057903.0,
+      "project_count": 8808,
+      "avg_rating": 4.445190735694819
+    }
+  ],
+  "top_projects": [
+    {
+      "project_name": "贴面修复四联",
+      "total_sales": 591684.0,
+      "listing_count": 4922,
+      "avg_actual_price": 3066.4880130028446,
+      "avg_rating": 4.444492076391712
+    },
+    {
+      "project_name": "冷光美白单次",
+      "total_sales": 583615.0,
+      "listing_count": 4904,
+      "avg_actual_price": 598.2840538336052,
+      "avg_rating": 4.448723491027736
+    },
+    {
+      "project_name": "冷光美白3次卡",
+      "total_sales": 578311.0,
+      "listing_count": 4806,
+      "avg_actual_price": 599.8822305451519,
+      "avg_rating": 4.447804827299207
+    },
+    {
+      "project_name": "贴面修复单颗",
+      "total_sales": 573921.0,
+      "listing_count": 4774,
+      "avg_actual_price": 3072.2739840804356,
+      "avg_rating": 4.437896941767901
+    },
+    {
+      "project_name": "祛痘护理单次",
+      "total_sales": 451680.0,
+      "listing_count": 3699,
+      "avg_actual_price": 636.353068396864,
+      "avg_rating": 4.4461178696945165
+    },
+    {
+      "project_name": "肉毒毒素100U",
+      "total_sales": 445546.0,
+      "listing_count": 3729,
+      "avg_actual_price": 1437.9356395816574,
+      "avg_rating": 4.436044515956012
+    },
+    {
+      "project_name": "修复补水三次卡",
+      "total_sales": 443557.0,
+      "listing_count": 3645,
+      "avg_actual_price": 598.0101508916324,
+      "avg_rating": 4.443355281207121
+    },
+    {
+      "project_name": "祛痘护理5次卡",
+      "total_sales": 442054.0,
+      "listing_count": 3676,
+      "avg_actual_price": 631.0832426550598,
+      "avg_rating": 4.4464281828073995
+    },
+    {
+      "project_name": "肉毒毒素50U",
+      "total_sales": 441507.0,
+      "listing_count": 3673,
+      "avg_actual_price": 1428.197386332698,
+      "avg_rating": 4.450372992104552
+    },
+    {
+      "project_name": "双眼皮切开",
+      "total_sales": 439189.0,
+      "listing_count": 3695,
+      "avg_actual_price": 4814.699052774019,
+      "avg_rating": 4.439843031123131
+    },
+    {
+      "project_name": "童颜针1vial",
+      "total_sales": 437595.0,
+      "listing_count": 3631,
+      "avg_actual_price": 5282.123381988433,
+      "avg_rating": 4.438237400165239
+    },
+    {
+      "project_name": "嗨体1支",
+      "total_sales": 436131.0,
+      "listing_count": 3686,
+      "avg_actual_price": 2158.5149213239283,
+      "avg_rating": 4.432672273467169
+    },
+    {
+      "project_name": "童颜针2vials",
+      "total_sales": 435883.0,
+      "listing_count": 3638,
+      "avg_actual_price": 5264.963991203958,
+      "avg_rating": 4.449194612424408
+    },
+    {
+      "project_name": "深层清洁单次",
+      "total_sales": 433156.0,
+      "listing_count": 3637,
+      "avg_actual_price": 331.3139950508661,
+      "avg_rating": 4.45144349738796
+    },
+    {
+      "project_name": "修复补水单次",
+      "total_sales": 432223.0,
+      "listing_count": 3581,
+      "avg_actual_price": 595.1655962021781,
+      "avg_rating": 4.439153867634733
+    },
+    {
+      "project_name": "深层清洁三次卡",
+      "total_sales": 427846.0,
+      "listing_count": 3568,
+      "avg_actual_price": 334.852298206278,
+      "avg_rating": 4.449756165919287
+    },
+    {
+      "project_name": "嗨体2支",
+      "total_sales": 427686.0,
+      "listing_count": 3572,
+      "avg_actual_price": 2182.4426091825308,
+      "avg_rating": 4.450876259798435
+    },
+    {
+      "project_name": "双眼皮埋线",
+      "total_sales": 417639.0,
+      "listing_count": 3512,
+      "avg_actual_price": 4762.266514806378,
+      "avg_rating": 4.445851366742588
+    },
+    {
+      "project_name": "吸脂大腿围",
+      "total_sales": 397007.0,
+      "listing_count": 3286,
+      "avg_actual_price": 10006.528301886792,
+      "avg_rating": 4.447519780888623
+    },
+    {
+      "project_name": "吸脂腹部",
+      "total_sales": 396266.0,
+      "listing_count": 3279,
+      "avg_actual_price": 10084.728270814272,
+      "avg_rating": 4.435471180237876
+    },
+    {
+      "project_name": "光子嫩肤单次",
+      "total_sales": 300808.0,
+      "listing_count": 2490,
+      "avg_actual_price": 1066.1510040160642,
+      "avg_rating": 4.435819277108427
+    },
+    {
+      "project_name": "玻尿酸2ml",
+      "total_sales": 298628.0,
+      "listing_count": 2487,
+      "avg_actual_price": 1789.032971451548,
+      "avg_rating": 4.453864093285083
+    },
+    {
+      "project_name": "皮秒激光全脸",
+      "total_sales": 295993.0,
+      "listing_count": 2507,
+      "avg_actual_price": 1875.6294375747907,
+      "avg_rating": 4.440682090147576
+    },
+    {
+      "project_name": "超声炮6线",
+      "total_sales": 294176.0,
+      "listing_count": 2418,
+      "avg_actual_price": 5936.278329197684,
+      "avg_rating": 4.442704714640199
+    },
+    {
+      "project_name": "超声炮2线",
+      "total_sales": 292197.0,
+      "listing_count": 2439,
+      "avg_actual_price": 5985.20254202542,
+      "avg_rating": 4.453378433784331
+    }
+  ],
+  "doctor_title_stats": [
+    {
+      "doctor_title": "主治医师",
+      "total_sales": 4809512.0,
+      "project_count": 39973,
+      "avg_rating": 4.44533034798492,
+      "avg_actual_price": 3504.483626447852
+    },
+    {
+      "doctor_title": "副主任医师",
+      "total_sales": 3236568.0,
+      "project_count": 27162,
+      "avg_rating": 4.4449399896914805,
+      "avg_actual_price": 3482.488218835137
+    },
+    {
+      "doctor_title": "执业医师",
+      "total_sales": 3014388.0,
+      "project_count": 25099,
+      "avg_rating": 4.44686282322004,
+      "avg_actual_price": 3452.698394358341
+    },
+    {
+      "doctor_title": "主任医师",
+      "total_sales": 2707080.0,
+      "project_count": 22543,
+      "avg_rating": 4.445283236481388,
+      "avg_actual_price": 3434.39156279111
+    },
+    {
+      "doctor_title": "资深医生",
+      "total_sales": 1193075.0,
+      "project_count": 9949,
+      "avg_rating": 4.439140617147443,
+      "avg_actual_price": 3462.394009448186
+    }
+  ],
+  "discount_band_stats": [
+    {
+      "discount_band": "中折扣(0.7-0.85)",
+      "project_count": 42973,
+      "avg_monthly_sales": 120.36318153259023,
+      "avg_rating": 4.443841016452256
+    },
+    {
+      "discount_band": "低折扣(<0.7)",
+      "project_count": 72841,
+      "avg_monthly_sales": 119.76483024670172,
+      "avg_rating": 4.445287544102931
+    },
+    {
+      "discount_band": "高折扣(>=0.85)",
+      "project_count": 8912,
+      "avg_monthly_sales": 119.44187612208259,
+      "avg_rating": 4.448958707360865
+    }
+  ],
+  "city_category_top": [
+    {
+      "city": "东莞",
+      "category": "皮肤管理",
+      "total_sales": 187031.0,
+      "project_count": 1535
+    },
+    {
+      "city": "青岛",
+      "category": "注射",
+      "total_sales": 183885.0,
+      "project_count": 1504
+    },
+    {
+      "city": "厦门",
+      "category": "注射",
+      "total_sales": 182264.0,
+      "project_count": 1520
+    },
+    {
+      "city": "天津",
+      "category": "注射",
+      "total_sales": 182158.0,
+      "project_count": 1494
+    },
+    {
+      "city": "合肥",
+      "category": "皮肤管理",
+      "total_sales": 181695.0,
+      "project_count": 1479
+    },
+    {
+      "city": "武汉",
+      "category": "注射",
+      "total_sales": 180920.0,
+      "project_count": 1510
+    },
+    {
+      "city": "苏州",
+      "category": "注射",
+      "total_sales": 180788.0,
+      "project_count": 1500
+    },
+    {
+      "city": "长沙",
+      "category": "皮肤管理",
+      "total_sales": 180186.0,
+      "project_count": 1501
+    },
+    {
+      "city": "重庆",
+      "category": "注射",
+      "total_sales": 179834.0,
+      "project_count": 1504
+    },
+    {
+      "city": "青岛",
+      "category": "皮肤管理",
+      "total_sales": 179540.0,
+      "project_count": 1479
+    },
+    {
+      "city": "武汉",
+      "category": "皮肤管理",
+      "total_sales": 178754.0,
+      "project_count": 1459
+    },
+    {
+      "city": "上海",
+      "category": "皮肤管理",
+      "total_sales": 178114.0,
+      "project_count": 1481
+    },
+    {
+      "city": "北京",
+      "category": "皮肤管理",
+      "total_sales": 177818.0,
+      "project_count": 1467
+    },
+    {
+      "city": "苏州",
+      "category": "皮肤管理",
+      "total_sales": 177573.0,
+      "project_count": 1437
+    },
+    {
+      "city": "郑州",
+      "category": "皮肤管理",
+      "total_sales": 177028.0,
+      "project_count": 1483
+    },
+    {
+      "city": "上海",
+      "category": "注射",
+      "total_sales": 176969.0,
+      "project_count": 1461
+    },
+    {
+      "city": "西安",
+      "category": "皮肤管理",
+      "total_sales": 175976.0,
+      "project_count": 1464
+    },
+    {
+      "city": "西安",
+      "category": "注射",
+      "total_sales": 175773.0,
+      "project_count": 1473
+    },
+    {
+      "city": "长沙",
+      "category": "注射",
+      "total_sales": 175365.0,
+      "project_count": 1512
+    },
+    {
+      "city": "重庆",
+      "category": "皮肤管理",
+      "total_sales": 175355.0,
+      "project_count": 1443
+    },
+    {
+      "city": "杭州",
+      "category": "皮肤管理",
+      "total_sales": 175109.0,
+      "project_count": 1453
+    },
+    {
+      "city": "北京",
+      "category": "注射",
+      "total_sales": 174967.0,
+      "project_count": 1501
+    },
+    {
+      "city": "郑州",
+      "category": "注射",
+      "total_sales": 174818.0,
+      "project_count": 1436
+    },
+    {
+      "city": "成都",
+      "category": "皮肤管理",
+      "total_sales": 174411.0,
+      "project_count": 1449
+    },
+    {
+      "city": "佛山",
+      "category": "皮肤管理",
+      "total_sales": 173730.0,
+      "project_count": 1470
+    },
+    {
+      "city": "合肥",
+      "category": "注射",
+      "total_sales": 173375.0,
+      "project_count": 1443
+    },
+    {
+      "city": "宁波",
+      "category": "注射",
+      "total_sales": 173162.0,
+      "project_count": 1434
+    },
+    {
+      "city": "佛山",
+      "category": "注射",
+      "total_sales": 172603.0,
+      "project_count": 1406
+    },
+    {
+      "city": "广州",
+      "category": "注射",
+      "total_sales": 171984.0,
+      "project_count": 1449
+    },
+    {
+      "city": "东莞",
+      "category": "注射",
+      "total_sales": 171076.0,
+      "project_count": 1402
+    },
+    {
+      "city": "杭州",
+      "category": "注射",
+      "total_sales": 170538.0,
+      "project_count": 1437
+    },
+    {
+      "city": "青岛",
+      "category": "光电",
+      "total_sales": 169245.0,
+      "project_count": 1379
+    },
+    {
+      "city": "厦门",
+      "category": "光电",
+      "total_sales": 168335.0,
+      "project_count": 1375
+    },
+    {
+      "city": "深圳",
+      "category": "注射",
+      "total_sales": 167631.0,
+      "project_count": 1428
+    },
+    {
+      "city": "合肥",
+      "category": "光电",
+      "total_sales": 167612.0,
+      "project_count": 1356
+    },
+    {
+      "city": "西安",
+      "category": "光电",
+      "total_sales": 167450.0,
+      "project_count": 1404
+    },
+    {
+      "city": "成都",
+      "category": "光电",
+      "total_sales": 167181.0,
+      "project_count": 1387
+    },
+    {
+      "city": "武汉",
+      "category": "光电",
+      "total_sales": 167115.0,
+      "project_count": 1398
+    },
+    {
+      "city": "成都",
+      "category": "注射",
+      "total_sales": 167092.0,
+      "project_count": 1428
+    },
+    {
+      "city": "厦门",
+      "category": "皮肤管理",
+      "total_sales": 166995.0,
+      "project_count": 1416
+    }
+  ],
+  "cluster_summary": [
+    {
+      "cluster": 0,
+      "count": 61248,
+      "avg_monthly_sales": 74.96065177638454,
+      "avg_rating": 4.447254930773316,
+      "avg_actual_price": 2105.942969566353,
+      "avg_list_price": 3185.8130387931033,
+      "avg_discount": 0.6653799944487886
+    },
+    {
+      "cluster": 1,
+      "count": 19026,
+      "avg_monthly_sales": 120.01208872069799,
+      "avg_rating": 4.44440975507202,
+      "avg_actual_price": 10949.002049826553,
+      "avg_list_price": 17984.340901923682,
+      "avg_discount": 0.6276143014821866
+    },
+    {
+      "cluster": 2,
+      "count": 44452,
+      "avg_monthly_sales": 181.90594348960676,
+      "avg_rating": 4.442290110681228,
+      "avg_actual_price": 2157.4661432556463,
+      "avg_list_price": 3263.820098083326,
+      "avg_discount": 0.6655697831368754
+    }
+  ],
+  "cluster_by_city": [
+    {
+      "cluster": 0,
+      "city": "东莞",
+      "count": 3029,
+      "avg_monthly_sales": 76.04324859689666,
+      "avg_actual_price": 2060.9270386266094
+    },
+    {
+      "cluster": 0,
+      "city": "重庆",
+      "count": 3098,
+      "avg_monthly_sales": 75.83118140735958,
+      "avg_actual_price": 2115.9102646868946
+    },
+    {
+      "cluster": 0,
+      "city": "广州",
+      "count": 3093,
+      "avg_monthly_sales": 75.76559974135144,
+      "avg_actual_price": 2087.613643711607
+    },
+    {
+      "cluster": 0,
+      "city": "武汉",
+      "count": 3069,
+      "avg_monthly_sales": 75.72531769305962,
+      "avg_actual_price": 2126.254154447703
+    },
+    {
+      "cluster": 0,
+      "city": "长沙",
+      "count": 3149,
+      "avg_monthly_sales": 75.71737059383932,
+      "avg_actual_price": 2132.6560812956495
+    },
+    {
+      "cluster": 0,
+      "city": "合肥",
+      "count": 3019,
+      "avg_monthly_sales": 75.70453792646572,
+      "avg_actual_price": 2118.689301093077
+    },
+    {
+      "cluster": 0,
+      "city": "青岛",
+      "count": 3010,
+      "avg_monthly_sales": 75.67109634551495,
+      "avg_actual_price": 2089.753488372093
+    },
+    {
+      "cluster": 0,
+      "city": "北京",
+      "count": 3210,
+      "avg_monthly_sales": 75.46635514018692,
+      "avg_actual_price": 2090.133956386293
+    },
+    {
+      "cluster": 0,
+      "city": "苏州",
+      "count": 3082,
+      "avg_monthly_sales": 75.2255029201817,
+      "avg_actual_price": 2134.006164828034
+    },
+    {
+      "cluster": 0,
+      "city": "厦门",
+      "count": 3068,
+      "avg_monthly_sales": 75.20469361147327,
+      "avg_actual_price": 2064.5795306388527
+    },
+    {
+      "cluster": 0,
+      "city": "深圳",
+      "count": 3054,
+      "avg_monthly_sales": 75.18958742632613,
+      "avg_actual_price": 2101.866077275704
+    },
+    {
+      "cluster": 0,
+      "city": "成都",
+      "count": 3035,
+      "avg_monthly_sales": 74.94365733113673,
+      "avg_actual_price": 2045.1588138385503
+    },
+    {
+      "cluster": 0,
+      "city": "上海",
+      "count": 3077,
+      "avg_monthly_sales": 74.88072798180046,
+      "avg_actual_price": 2091.232044198895
+    },
+    {
+      "cluster": 0,
+      "city": "天津",
+      "count": 3057,
+      "avg_monthly_sales": 74.65914295060517,
+      "avg_actual_price": 2138.591102387962
+    },
+    {
+      "cluster": 0,
+      "city": "宁波",
+      "count": 2983,
+      "avg_monthly_sales": 74.63291987931612,
+      "avg_actual_price": 2172.976868923902
+    },
+    {
+      "cluster": 0,
+      "city": "杭州",
+      "count": 3061,
+      "avg_monthly_sales": 74.52401176086246,
+      "avg_actual_price": 2128.327670695851
+    },
+    {
+      "cluster": 0,
+      "city": "佛山",
+      "count": 2964,
+      "avg_monthly_sales": 74.29588394062078,
+      "avg_actual_price": 2084.121794871795
+    },
+    {
+      "cluster": 0,
+      "city": "郑州",
+      "count": 3069,
+      "avg_monthly_sales": 73.30628869338547,
+      "avg_actual_price": 2106.051808406647
+    },
+    {
+      "cluster": 0,
+      "city": "南京",
+      "count": 3106,
+      "avg_monthly_sales": 73.2073406310367,
+      "avg_actual_price": 2101.5399227301996
+    },
+    {
+      "cluster": 0,
+      "city": "西安",
+      "count": 3015,
+      "avg_monthly_sales": 73.15621890547264,
+      "avg_actual_price": 2128.8451077943614
+    },
+    {
+      "cluster": 1,
+      "city": "广州",
+      "count": 910,
+      "avg_monthly_sales": 124.67362637362638,
+      "avg_actual_price": 11015.513186813187
+    },
+    {
+      "cluster": 1,
+      "city": "佛山",
+      "count": 971,
+      "avg_monthly_sales": 122.79814624098867,
+      "avg_actual_price": 11026.723995880535
+    },
+    {
+      "cluster": 1,
+      "city": "厦门",
+      "count": 977,
+      "avg_monthly_sales": 122.29477993858751,
+      "avg_actual_price": 10880.464687819856
+    },
+    {
+      "cluster": 1,
+      "city": "深圳",
+      "count": 929,
+      "avg_monthly_sales": 122.22066738428417,
+      "avg_actual_price": 10975.193756727664
+    },
+    {
+      "cluster": 1,
+      "city": "西安",
+      "count": 964,
+      "avg_monthly_sales": 121.91390041493776,
+      "avg_actual_price": 11075.09336099585
+    },
+    {
+      "cluster": 1,
+      "city": "重庆",
+      "count": 898,
+      "avg_monthly_sales": 121.76948775055679,
+      "avg_actual_price": 10810.97438752784
+    },
+    {
+      "cluster": 1,
+      "city": "杭州",
+      "count": 947,
+      "avg_monthly_sales": 120.40337909186906,
+      "avg_actual_price": 10902.198521647308
+    },
+    {
+      "cluster": 1,
+      "city": "南京",
+      "count": 945,
+      "avg_monthly_sales": 120.25608465608465,
+      "avg_actual_price": 10846.421164021163
+    },
+    {
+      "cluster": 1,
+      "city": "合肥",
+      "count": 945,
+      "avg_monthly_sales": 120.02645502645503,
+      "avg_actual_price": 10906.920634920634
+    },
+    {
+      "cluster": 1,
+      "city": "成都",
+      "count": 937,
+      "avg_monthly_sales": 119.99466382070437,
+      "avg_actual_price": 10977.40234791889
+    },
+    {
+      "cluster": 1,
+      "city": "长沙",
+      "count": 914,
+      "avg_monthly_sales": 119.98140043763676,
+      "avg_actual_price": 10843.625820568928
+    },
+    {
+      "cluster": 1,
+      "city": "天津",
+      "count": 993,
+      "avg_monthly_sales": 119.50654582074522,
+      "avg_actual_price": 10972.368580060423
+    },
+    {
+      "cluster": 1,
+      "city": "郑州",
+      "count": 969,
+      "avg_monthly_sales": 119.17543859649123,
+      "avg_actual_price": 11023.711042311661
+    },
+    {
+      "cluster": 1,
+      "city": "青岛",
+      "count": 960,
+      "avg_monthly_sales": 118.759375,
+      "avg_actual_price": 10956.20625
+    },
+    {
+      "cluster": 1,
+      "city": "宁波",
+      "count": 971,
+      "avg_monthly_sales": 118.6961894953656,
+      "avg_actual_price": 10962.028836251287
+    },
+    {
+      "cluster": 1,
+      "city": "东莞",
+      "count": 984,
+      "avg_monthly_sales": 118.375,
+      "avg_actual_price": 10901.52337398374
+    },
+    {
+      "cluster": 1,
+      "city": "北京",
+      "count": 960,
+      "avg_monthly_sales": 118.24479166666667,
+      "avg_actual_price": 10830.097916666668
+    },
+    {
+      "cluster": 1,
+      "city": "苏州",
+      "count": 936,
+      "avg_monthly_sales": 118.03846153846153,
+      "avg_actual_price": 11011.94123931624
+    },
+    {
+      "cluster": 1,
+      "city": "上海",
+      "count": 953,
+      "avg_monthly_sales": 117.59496327387198,
+      "avg_actual_price": 10985.101783840504
+    },
+    {
+      "cluster": 1,
+      "city": "武汉",
+      "count": 963,
+      "avg_monthly_sales": 115.90031152647975,
+      "avg_actual_price": 11065.467289719627
+    },
+    {
+      "cluster": 2,
+      "city": "东莞",
+      "count": 2211,
+      "avg_monthly_sales": 183.66757123473542,
+      "avg_actual_price": 2131.281772953415
+    },
+    {
+      "cluster": 2,
+      "city": "合肥",
+      "count": 2263,
+      "avg_monthly_sales": 183.14449845338046,
+      "avg_actual_price": 2166.0945647370745
+    },
+    {
+      "cluster": 2,
+      "city": "上海",
+      "count": 2257,
+      "avg_monthly_sales": 183.09038546743466,
+      "avg_actual_price": 2155.2184315463005
+    },
+    {
+      "cluster": 2,
+      "city": "广州",
+      "count": 2136,
+      "avg_monthly_sales": 183.06273408239701,
+      "avg_actual_price": 2171.2378277153557
+    },
+    {
+      "cluster": 2,
+      "city": "重庆",
+      "count": 2256,
+      "avg_monthly_sales": 182.9494680851064,
+      "avg_actual_price": 2191.5150709219856
+    },
+    {
+      "cluster": 2,
+      "city": "郑州",
+      "count": 2255,
+      "avg_monthly_sales": 182.73348115299333,
+      "avg_actual_price": 2176.1454545454544
+    },
+    {
+      "cluster": 2,
+      "city": "天津",
+      "count": 2152,
+      "avg_monthly_sales": 182.4442379182156,
+      "avg_actual_price": 2208.3029739776953
+    },
+    {
+      "cluster": 2,
+      "city": "佛山",
+      "count": 2218,
+      "avg_monthly_sales": 182.42786293958522,
+      "avg_actual_price": 2158.741208295762
+    },
+    {
+      "cluster": 2,
+      "city": "武汉",
+      "count": 2260,
+      "avg_monthly_sales": 182.36150442477876,
+      "avg_actual_price": 2117.127876106195
+    },
+    {
+      "cluster": 2,
+      "city": "苏州",
+      "count": 2218,
+      "avg_monthly_sales": 182.2326420198377,
+      "avg_actual_price": 2105.560865644725
+    },
+    {
+      "cluster": 2,
+      "city": "北京",
+      "count": 2238,
+      "avg_monthly_sales": 182.0040214477212,
+      "avg_actual_price": 2188.930294906166
+    },
+    {
+      "cluster": 2,
+      "city": "青岛",
+      "count": 2314,
+      "avg_monthly_sales": 181.5198789974071,
+      "avg_actual_price": 2146.5384615384614
+    },
+    {
+      "cluster": 2,
+      "city": "成都",
+      "count": 2235,
+      "avg_monthly_sales": 181.48098434004476,
+      "avg_actual_price": 2158.5691275167787
+    },
+    {
+      "cluster": 2,
+      "city": "南京",
+      "count": 2134,
+      "avg_monthly_sales": 181.41940018744143,
+      "avg_actual_price": 2155.5843486410495
+    },
+    {
+      "cluster": 2,
+      "city": "宁波",
+      "count": 2200,
+      "avg_monthly_sales": 181.36545454545455,
+      "avg_actual_price": 2181.1136363636365
+    },
+    {
+      "cluster": 2,
+      "city": "西安",
+      "count": 2295,
+      "avg_monthly_sales": 181.0331154684096,
+      "avg_actual_price": 2165.1359477124183
+    },
+    {
+      "cluster": 2,
+      "city": "杭州",
+      "count": 2211,
+      "avg_monthly_sales": 180.98688376300316,
+      "avg_actual_price": 2071.3188602442333
+    },
+    {
+      "cluster": 2,
+      "city": "深圳",
+      "count": 2133,
+      "avg_monthly_sales": 180.23066104078762,
+      "avg_actual_price": 2237.361931551805
+    },
+    {
+      "cluster": 2,
+      "city": "长沙",
+      "count": 2244,
+      "avg_monthly_sales": 180.14260249554368,
+      "avg_actual_price": 2139.6497326203207
+    },
+    {
+      "cluster": 2,
+      "city": "厦门",
+      "count": 2222,
+      "avg_monthly_sales": 179.78352835283528,
+      "avg_actual_price": 2128.65301530153
+    }
+  ],
+  "cluster_by_category": [
+    {
+      "cluster": 0,
+      "category": "皮肤管理",
+      "count": 16811,
+      "avg_monthly_sales": 76.17785973469752,
+      "avg_actual_price": 760.437808577717
+    },
+    {
+      "cluster": 0,
+      "category": "口腔",
+      "count": 11239,
+      "avg_monthly_sales": 75.28427796067265,
+      "avg_actual_price": 1832.1428062994928
+    },
+    {
+      "cluster": 0,
+      "category": "注射",
+      "count": 16860,
+      "avg_monthly_sales": 75.27562277580071,
+      "avg_actual_price": 2578.064472123369
+    },
+    {
+      "cluster": 0,
+      "category": "光电",
+      "count": 11882,
+      "avg_monthly_sales": 73.56118498569265,
+      "avg_actual_price": 2580.858609661673
+    },
+    {
+      "cluster": 0,
+      "category": "外科",
+      "count": 4456,
+      "avg_monthly_sales": 72.09223518850987,
+      "avg_actual_price": 4819.949057450628
+    },
+    {
+      "cluster": 1,
+      "category": "注射",
+      "count": 352,
+      "avg_monthly_sales": 123.69602272727273,
+      "avg_actual_price": 7762.721590909091
+    },
+    {
+      "cluster": 1,
+      "category": "光电",
+      "count": 6282,
+      "avg_monthly_sales": 120.63801337153772,
+      "avg_actual_price": 10601.217287488062
+    },
+    {
+      "cluster": 1,
+      "category": "口腔",
+      "count": 780,
+      "avg_monthly_sales": 120.26923076923077,
+      "avg_actual_price": 13206.394871794872
+    },
+    {
+      "cluster": 1,
+      "category": "外科",
+      "count": 11612,
+      "avg_monthly_sales": 119.54452290733724,
+      "avg_actual_price": 11082.104719255942
+    },
+    {
+      "cluster": 2,
+      "category": "外科",
+      "count": 3341,
+      "avg_monthly_sales": 184.50314277162525,
+      "avg_actual_price": 4949.636935049386
+    },
+    {
+      "cluster": 2,
+      "category": "光电",
+      "count": 8734,
+      "avg_monthly_sales": 182.79013052438745,
+      "avg_actual_price": 2696.7024272956264
+    },
+    {
+      "cluster": 2,
+      "category": "注射",
+      "count": 12050,
+      "avg_monthly_sales": 181.65377593360995,
+      "avg_actual_price": 2630.002323651452
+    },
+    {
+      "cluster": 2,
+      "category": "口腔",
+      "count": 8167,
+      "avg_monthly_sales": 181.3898616383005,
+      "avg_actual_price": 1834.9278804946737
+    },
+    {
+      "cluster": 2,
+      "category": "皮肤管理",
+      "count": 12160,
+      "avg_monthly_sales": 181.15378289473685,
+      "avg_actual_price": 751.3622532894736
+    }
+  ],
+  "cluster_by_channel": [
+    {
+      "cluster": 0,
+      "channel": "私域",
+      "count": 6131,
+      "avg_monthly_sales": 75.27891045506442,
+      "avg_rating": 4.444395694014025
+    },
+    {
+      "cluster": 0,
+      "channel": "投放",
+      "count": 10995,
+      "avg_monthly_sales": 75.25784447476126,
+      "avg_rating": 4.4479290586630365
+    },
+    {
+      "cluster": 0,
+      "channel": "团购",
+      "count": 12418,
+      "avg_monthly_sales": 75.13101948784023,
+      "avg_rating": 4.446417297471405
+    },
+    {
+      "cluster": 0,
+      "channel": "自然",
+      "count": 27391,
+      "avg_monthly_sales": 74.81654558066518,
+      "avg_rating": 4.4461534810704215
+    },
+    {
+      "cluster": 0,
+      "channel": "转介绍",
+      "count": 4313,
+      "avg_monthly_sales": 74.17528402504057,
+      "avg_rating": 4.4590076512867896
+    },
+    {
+      "cluster": 1,
+      "channel": "投放",
+      "count": 3411,
+      "avg_monthly_sales": 121.19700967458223,
+      "avg_rating": 4.447247141600708
+    },
+    {
+      "cluster": 1,
+      "channel": "团购",
+      "count": 3786,
+      "avg_monthly_sales": 120.73058637083993,
+      "avg_rating": 4.444199683042793
+    },
+    {
+      "cluster": 1,
+      "channel": "自然",
+      "count": 8596,
+      "avg_monthly_sales": 119.68241042345277,
+      "avg_rating": 4.442349930200095
+    },
+    {
+      "cluster": 1,
+      "channel": "转介绍",
+      "count": 1311,
+      "avg_monthly_sales": 119.44851258581235,
+      "avg_rating": 4.455514874141876
+    },
+    {
+      "cluster": 1,
+      "channel": "私域",
+      "count": 1922,
+      "avg_monthly_sales": 118.35275754422477,
+      "avg_rating": 4.441425598335059
+    },
+    {
+      "cluster": 2,
+      "channel": "私域",
+      "count": 4377,
+      "avg_monthly_sales": 182.31299977153301,
+      "avg_rating": 4.440694539639027
+    },
+    {
+      "cluster": 2,
+      "channel": "团购",
+      "count": 9057,
+      "avg_monthly_sales": 182.19631224467264,
+      "avg_rating": 4.4407463840123444
+    },
+    {
+      "cluster": 2,
+      "channel": "自然",
+      "count": 19953,
+      "avg_monthly_sales": 182.11121134666467,
+      "avg_rating": 4.443410514709544
+    },
+    {
+      "cluster": 2,
+      "channel": "投放",
+      "count": 7887,
+      "avg_monthly_sales": 181.3811335108406,
+      "avg_rating": 4.445564853556504
+    },
+    {
+      "cluster": 2,
+      "channel": "转介绍",
+      "count": 3178,
+      "avg_monthly_sales": 180.5314663310258,
+      "avg_rating": 4.433725613593453
+    }
+  ]
+}

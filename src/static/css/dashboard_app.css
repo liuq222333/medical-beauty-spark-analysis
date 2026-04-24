@@ -28,6 +28,11 @@ body.app-body {
   display: flex;
   flex-direction: column;
   box-shadow: 4px 0 24px rgba(15, 23, 42, 0.12);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  align-self: flex-start;
 }
 .sidebar-brand {
   padding: 22px 18px;
