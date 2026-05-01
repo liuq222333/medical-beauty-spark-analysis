@@ -1250,7 +1250,7 @@
       "project_count": 19510,
       "doctor_count": 6849,
       "total_sales": 1462579.0,
-      "avg_rating": 4.448197334700158,
+      "avg_rating": 4.448197334700156,
       "avg_actual_price": 2104.164736032804,
       "title_rank_in_cluster": 1
     },
@@ -1260,7 +1260,7 @@
       "project_count": 13448,
       "doctor_count": 6171,
       "total_sales": 1004936.0,
-      "avg_rating": 4.4468158834027385,
+      "avg_rating": 4.446815883402739,
       "avg_actual_price": 2104.179208804283,
       "title_rank_in_cluster": 2
     },
@@ -1310,7 +1310,7 @@
       "project_count": 4150,
       "doctor_count": 3167,
       "total_sales": 492168.0,
-      "avg_rating": 4.448563855421688,
+      "avg_rating": 4.4485638554216855,
       "avg_actual_price": 10995.200481927712,
       "title_rank_in_cluster": 2
     },
@@ -1360,7 +1360,7 @@
       "project_count": 9564,
       "doctor_count": 5355,
       "total_sales": 1739464.0,
-      "avg_rating": 4.440729820158923,
+      "avg_rating": 4.4407298201589205,
       "avg_actual_price": 2160.629548306148,
       "title_rank_in_cluster": 2
     },
@@ -1370,7 +1370,7 @@
       "project_count": 8983,
       "doctor_count": 5184,
       "total_sales": 1633410.0,
-      "avg_rating": 4.442701770010017,
+      "avg_rating": 4.44270177001002,
       "avg_actual_price": 2142.813202716242,
       "title_rank_in_cluster": 3
     },
@@ -1380,7 +1380,7 @@
       "project_count": 8141,
       "doctor_count": 4874,
       "total_sales": 1473895.0,
-      "avg_rating": 4.444605085370348,
+      "avg_rating": 4.444605085370347,
       "avg_actual_price": 2158.9299840314457,
       "title_rank_in_cluster": 4
     },
@@ -1503,7 +1503,7 @@
   "_metadata": {
     "k": 3,
     "total_rows": 124726,
-    "generated_at": "2026-04-24T09:04:24",
+    "generated_at": "2026-04-24T13:05:52",
     "tables": [
       "cluster_profile",
       "cluster_city_rank",
@@ -1514,6 +1514,6 @@
       "cluster_doctor_matching",
       "cluster_month_delta"
     ],
-    "warehouse_dir": "/Users/ethan/Desktop/medical-beauty-spark-analysis/output/cluster_tables"
+    "warehouse_dir": "D:\\xm\\spark\\medical-beauty-spark-analysis\\output\\cluster_tables"
   }
 }

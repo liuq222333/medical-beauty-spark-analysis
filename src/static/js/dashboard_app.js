@@ -600,29 +600,64 @@ series: [
     if (!cityRank.length) { charts.deepCity.clear(); return; }
 
     var clusters = distinctClusters(cityRank);
-    var citySum = {};
+    var cityMetrics = {};
     cityRank.forEach(function (r) {
-      if (r.city) citySum[r.city] = (citySum[r.city] || 0) + (Number(r.total_sales) || 0);
+      if (!r.city) return;
+      if (!cityMetrics[r.city]) cityMetrics[r.city] = { total: 0, spread: 0, byCluster: {} };
+      var sales = Number(r.total_sales) || 0;
+      cityMetrics[r.city].total += sales;
+      cityMetrics[r.city].byCluster[Number(r.cluster)] = sales;
     });
-    var topCities = Object.keys(citySum).sort(function (a, b) { return citySum[b] - citySum[a]; }).slice(0, 10);
+    Object.keys(cityMetrics).forEach(function (city) {
+      var vals = clusters.map(function (cl) { return cityMetrics[city].byCluster[cl] || 0; });
+      cityMetrics[city].spread = vals.length ? (Math.max.apply(null, vals) - Math.min.apply(null, vals)) : 0;
+    });
+    var topCities = Object.keys(cityMetrics).sort(function (a, b) {
+      var spreadDiff = cityMetrics[b].spread - cityMetrics[a].spread;
+      if (spreadDiff !== 0) return spreadDiff;
+      return cityMetrics[b].total - cityMetrics[a].total;
+    }).slice(0, 10);
 
     var series = clusters.map(function (cl) {
       return {
         name: "簇 " + cl,
         type: "bar",
-        stack: "cluster",
+        barMaxWidth: 22,
         itemStyle: { color: clusterColor(cl) },
+        emphasis: { focus: "series" },
         data: topCities.map(function (c) {
-          var row = cityRank.find(function (r) { return Number(r.cluster) === cl && r.city === c; });
-          return row ? (Number(row.total_sales) || 0) : 0;
+          return cityMetrics[c] ? (cityMetrics[c].byCluster[cl] || 0) : 0;
         })
       };
     });
     charts.deepCity.setOption({
-      title: { text: "聚类×城市销量分布（TOP 10 城市）", left: "center", textStyle: { fontSize: 13, color: "#0f172a" } },
-      tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+      title: {
+        text: "聚类×城市销量对比（差异度 TOP 10 城市）",
+        subtext: "按同城内各簇销量最大差值排序",
+        left: "center",
+        textStyle: { fontSize: 13, color: "#0f172a" },
+        subtextStyle: { fontSize: 11, color: "#64748b" }
+      },
+      tooltip: {
+        trigger: "axis",
+        axisPointer: { type: "shadow" },
+        formatter: function (params) {
+          if (!params || !params.length) return "";
+          var city = params[0].axisValue;
+          var metric = cityMetrics[city] || { total: 0, spread: 0 };
+          var lines = [
+            city,
+            "总销量：" + fmtNum(metric.total),
+            "簇间最大差值：" + fmtNum(metric.spread)
+          ];
+          params.forEach(function (p) {
+            lines.push(p.marker + p.seriesName + "：" + fmtNum(p.value));
+          });
+          return lines.join("<br/>");
+        }
+      },
       legend: { bottom: 0 },
-      grid: { left: 12, right: 12, top: 40, bottom: 48, containLabel: true },
+      grid: { left: 12, right: 12, top: 58, bottom: 48, containLabel: true },
       xAxis: { type: "category", data: topCities, axisLabel: { rotate: 25, fontSize: 11 } },
       yAxis: { type: "value", name: "销量" },
       series: series

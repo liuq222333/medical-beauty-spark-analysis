@@ -7,6 +7,10 @@ HDFS 读写辅助（pandas + pyarrow HadoopFileSystem）。
 from __future__ import annotations
 
 import io
+import os
+import subprocess
+import tempfile
+import uuid
 
 import pandas as pd
 
@@ -47,15 +51,22 @@ def _hdfs_fs():
     )
 
 
-def read_csv_pandas(path: str, encoding=None):
-    """
-    从 HDFS 读取 CSV，编码尝试顺序与 preprocess 一致。
-    返回 (DataFrame, encoding_used)。
-    """
-    _, _, hpath = parse_hdfs_uri(path)
-    fs = _hdfs_fs()
-    with fs.open_input_stream(hpath) as stream:
-        data = stream.read()
+def _namenode_container():
+    """Docker HDFS fallback: NameNode container name."""
+    return os.environ.get("HDFS_DOCKER_NAMENODE", "hdfs-namenode")
+
+
+def _docker_exec_hdfs(args, capture_output=False):
+    cmd = ["docker", "exec", _namenode_container(), "hdfs", "dfs"] + list(args)
+    return subprocess.run(
+        cmd,
+        check=True,
+        stdout=subprocess.PIPE if capture_output else None,
+        stderr=subprocess.PIPE if capture_output else None,
+    )
+
+
+def _decode_csv_bytes(data, encoding=None):
     encodings = [encoding] if encoding else []
     encodings.extend(["utf-8", "gbk", "gb18030"])
     seen = set()
@@ -79,29 +90,127 @@ def read_csv_pandas(path: str, encoding=None):
     )
 
 
+def _should_fallback_to_docker(err):
+    msg = str(err)
+    return (
+        os.environ.get("HDFS_IO_MODE", "").lower() == "docker"
+        or "Unable to load libhdfs" in msg
+        or "hdfs.dll" in msg
+        or "libhdfs" in msg
+    )
+
+
+def _read_csv_pandas_docker(hpath, encoding=None):
+    proc = _docker_exec_hdfs(["-cat", hpath], capture_output=True)
+    return _decode_csv_bytes(proc.stdout, encoding)
+
+
+def _write_parquet_from_pandas_docker(pdf: pd.DataFrame, hpath: str) -> None:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    parent = hpath.rsplit("/", 1)[0]
+    tmp_name = "mb_{}.parquet".format(uuid.uuid4().hex)
+    container_tmp = "/tmp/{}".format(tmp_name)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        local_tmp = os.path.join(tmpdir, tmp_name)
+        table = pa.Table.from_pandas(pdf, preserve_index=False)
+        pq.write_table(
+            table,
+            local_tmp,
+            coerce_timestamps="us",
+            allow_truncated_timestamps=True,
+        )
+        if parent:
+            _docker_exec_hdfs(["-mkdir", "-p", parent])
+        subprocess.run(
+            ["docker", "cp", local_tmp, "{}:{}".format(_namenode_container(), container_tmp)],
+            check=True,
+        )
+        try:
+            _docker_exec_hdfs(["-put", "-f", container_tmp, hpath])
+        finally:
+            subprocess.run(
+                ["docker", "exec", _namenode_container(), "rm", "-f", container_tmp],
+                check=False,
+            )
+
+
+def _read_parquet_to_pandas_docker(hpath: str) -> pd.DataFrame:
+    tmp_name = "mb_{}_parquet".format(uuid.uuid4().hex)
+    container_tmp = "/tmp/{}".format(tmp_name)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        local_tmp = os.path.join(tmpdir, tmp_name)
+        try:
+            _docker_exec_hdfs(["-copyToLocal", "-f", hpath, container_tmp])
+            subprocess.run(
+                ["docker", "cp", "{}:{}".format(_namenode_container(), container_tmp), local_tmp],
+                check=True,
+            )
+            return pd.read_parquet(local_tmp)
+        finally:
+            subprocess.run(
+                ["docker", "exec", _namenode_container(), "rm", "-rf", container_tmp],
+                check=False,
+            )
+
+
+def read_csv_pandas(path: str, encoding=None):
+    """
+    从 HDFS 读取 CSV，编码尝试顺序与 preprocess 一致。
+    返回 (DataFrame, encoding_used)。
+    """
+    _, _, hpath = parse_hdfs_uri(path)
+    try:
+        fs = _hdfs_fs()
+        with fs.open_input_stream(hpath) as stream:
+            data = stream.read()
+        return _decode_csv_bytes(data, encoding)
+    except Exception as e:
+        if not _should_fallback_to_docker(e):
+            raise
+        return _read_csv_pandas_docker(hpath, encoding)
+
+
 def write_parquet_from_pandas(pdf: pd.DataFrame, uri: str) -> None:
     import pyarrow as pa
     import pyarrow.parquet as pq
 
     _, _, hpath = parse_hdfs_uri(uri)
-    fs = _hdfs_fs()
-    parent = hpath.rsplit("/", 1)[0]
-    if parent:
-        try:
-            fs.create_dir(parent, recursive=True)
-        except Exception:
-            pass
-    table = pa.Table.from_pandas(pdf, preserve_index=False)
-    pq.write_table(table, hpath, filesystem=fs)
+    try:
+        fs = _hdfs_fs()
+        parent = hpath.rsplit("/", 1)[0]
+        if parent:
+            try:
+                fs.create_dir(parent, recursive=True)
+            except Exception:
+                pass
+        table = pa.Table.from_pandas(pdf, preserve_index=False)
+        pq.write_table(
+            table,
+            hpath,
+            filesystem=fs,
+            coerce_timestamps="us",
+            allow_truncated_timestamps=True,
+        )
+    except Exception as e:
+        if not _should_fallback_to_docker(e):
+            raise
+        _write_parquet_from_pandas_docker(pdf, hpath)
 
 
 def read_parquet_to_pandas(uri: str) -> pd.DataFrame:
     import pyarrow.parquet as pq
 
     _, _, hpath = parse_hdfs_uri(uri)
-    fs = _hdfs_fs()
-    table = pq.read_table(hpath, filesystem=fs)
-    return table.to_pandas()
+    try:
+        fs = _hdfs_fs()
+        table = pq.read_table(hpath, filesystem=fs)
+        return table.to_pandas()
+    except Exception as e:
+        if not _should_fallback_to_docker(e):
+            raise
+        return _read_parquet_to_pandas_docker(hpath)
 
 
 def is_hdfs_uri(s: str | None) -> bool:

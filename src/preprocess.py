@@ -169,7 +169,13 @@ def run(input_path=None, output_path=None, encoding=None, remove_outliers=True):
     if is_hdfs_uri(output_path):
         write_parquet_from_pandas(pdf, output_path)
     else:
-        pdf.to_parquet(output_path, index=False)
+        pdf.to_parquet(
+            output_path,
+            index=False,
+            engine="pyarrow",
+            coerce_timestamps="us",
+            allow_truncated_timestamps=True,
+        )
     return {
         "total_before": total_before,
         "total_after": total_after,

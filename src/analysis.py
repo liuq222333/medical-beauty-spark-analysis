@@ -33,6 +33,8 @@ def _get_spark():
     if cfg.USE_HDFS:
         b = b.config("spark.hadoop.fs.defaultFS", cfg.spark_default_fs()).config(
             "spark.hadoop.fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem"
+        ).config(
+            "spark.hadoop.dfs.client.use.datanode.hostname", "true"
         )
     return b.getOrCreate()
 
@@ -90,7 +92,13 @@ def run_clustering(parquet_path=None, k=None, output_dir=None):
             write_parquet_from_pandas(pdf, cluster_path)
         else:
             os.makedirs(output_dir, exist_ok=True)
-            pdf.to_parquet(cluster_path, index=False)
+            pdf.to_parquet(
+                cluster_path,
+                index=False,
+                engine="pyarrow",
+                coerce_timestamps="us",
+                allow_truncated_timestamps=True,
+            )
 
     # 保存聚类中心与特征列名，供可视化使用
     centers_json = os.path.join(output_dir, "cluster_centers.json")
@@ -476,6 +484,8 @@ _WAREHOUSE_DIRNAME = "cluster_tables"
 
 def cluster_warehouse_dir(output_dir=None):
     """聚类派生主题表的输出目录。"""
+    if config.USE_HDFS:
+        return config.hdfs_uri("output", _WAREHOUSE_DIRNAME)
     output_dir = output_dir or config.OUTPUT_DIR
     return os.path.join(output_dir, _WAREHOUSE_DIRNAME)
 
@@ -493,11 +503,42 @@ def _write_spark_parquet(df, path):
         df.write.mode("overwrite").parquet(path)
     except Exception:
         pdf = df.toPandas()
-        if is_hdfs_uri(path):
-            write_parquet_from_pandas(pdf, path)
-        else:
-            os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-            pdf.to_parquet(path, index=False)
+        _write_pandas_parquet(pdf, path)
+
+
+def _join_storage_path(base, *parts):
+    """同时兼容 Windows 本地路径与 hdfs:// URI 的路径拼接。"""
+    if is_hdfs_uri(base):
+        cleaned = [str(p).replace("\\", "/").strip("/") for p in parts if p]
+        if not cleaned:
+            return base
+        return base.rstrip("/") + "/" + "/".join(cleaned)
+    return os.path.join(base, *parts)
+
+
+def _ensure_storage_dir(path):
+    """HDFS 目录由 Spark/HDFS 客户端创建，本地目录才用 os.makedirs。"""
+    if not is_hdfs_uri(path):
+        os.makedirs(path, exist_ok=True)
+
+
+def _write_pandas_parquet(pdf, path):
+    """pandas 回退写 Parquet，并保持 Spark 可读取的时间戳精度。"""
+    if is_hdfs_uri(path):
+        write_parquet_from_pandas(pdf, path)
+        return
+
+    if os.path.isdir(path):
+        path = os.path.join(path, "part-00000.parquet")
+    else:
+        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    pdf.to_parquet(
+        path,
+        index=False,
+        engine="pyarrow",
+        coerce_timestamps="us",
+        allow_truncated_timestamps=True,
+    )
 
 
 def _collect_as_dicts(df, limit=None):
@@ -527,7 +568,7 @@ def run_cluster_warehouse(clustered_parquet=None, output_dir=None):
     output_dir = output_dir or config.OUTPUT_DIR
     config.ensure_dirs()
     warehouse_dir = cluster_warehouse_dir(output_dir)
-    os.makedirs(warehouse_dir, exist_ok=True)
+    _ensure_storage_dir(warehouse_dir)
 
     spark = _get_spark()
     df = spark.read.parquet(clustered_parquet)
@@ -557,7 +598,7 @@ def run_cluster_warehouse(clustered_parquet=None, output_dir=None):
 
     def _emit(name, sql, row_limit=None):
         result = spark.sql(sql)
-        path = os.path.join(warehouse_dir, name + ".parquet")
+        path = _join_storage_path(warehouse_dir, name + ".parquet")
         _write_spark_parquet(result, path)
         # 注册临时视图，方便后续主题表 JOIN 之前已物化的表
         result.createOrReplaceTempView(name)
@@ -917,6 +958,8 @@ _ADVANCED_DIRNAME = "advanced_tables"
 
 def advanced_warehouse_dir(output_dir=None):
     """高级分析派生表的输出目录。"""
+    if config.USE_HDFS:
+        return config.hdfs_uri("output", _ADVANCED_DIRNAME)
     output_dir = output_dir or config.OUTPUT_DIR
     return os.path.join(output_dir, _ADVANCED_DIRNAME)
 
@@ -961,7 +1004,7 @@ def run_statistical_analysis(parquet_path=None, output_dir=None):
     output_dir = output_dir or config.OUTPUT_DIR
     config.ensure_dirs()
     warehouse_dir = advanced_warehouse_dir(output_dir)
-    os.makedirs(warehouse_dir, exist_ok=True)
+    _ensure_storage_dir(warehouse_dir)
 
     spark = _get_spark()
     df = _prepare_advanced_df(spark, parquet_path)
@@ -1037,7 +1080,7 @@ def run_statistical_analysis(parquet_path=None, output_dir=None):
             sales=q(config.COL_MONTHLY_SALES),
         )
         elast_df = spark.sql(sql_elast)
-        _write_spark_parquet(elast_df, os.path.join(warehouse_dir, "stat_price_elasticity.parquet"))
+        _write_spark_parquet(elast_df, _join_storage_path(warehouse_dir, "stat_price_elasticity.parquet"))
         results["price_elasticity_by_category"] = _collect_as_dicts(elast_df)
 
     # 4) 评分-销量相关性：按城市分层
@@ -1059,7 +1102,7 @@ def run_statistical_analysis(parquet_path=None, output_dir=None):
             sales=q(config.COL_MONTHLY_SALES),
         )
         rc_city = spark.sql(sql_rc)
-        _write_spark_parquet(rc_city, os.path.join(warehouse_dir, "stat_rating_sales_by_city.parquet"))
+        _write_spark_parquet(rc_city, _join_storage_path(warehouse_dir, "stat_rating_sales_by_city.parquet"))
         results["rating_sales_corr_by_city"] = _collect_as_dicts(rc_city)
 
     # 5) 评分-销量相关性：按品类分层
@@ -1080,7 +1123,7 @@ def run_statistical_analysis(parquet_path=None, output_dir=None):
             sales=q(config.COL_MONTHLY_SALES),
         )
         rc_cat = spark.sql(sql_rcat)
-        _write_spark_parquet(rc_cat, os.path.join(warehouse_dir, "stat_rating_sales_by_category.parquet"))
+        _write_spark_parquet(rc_cat, _join_storage_path(warehouse_dir, "stat_rating_sales_by_category.parquet"))
         results["rating_sales_corr_by_category"] = _collect_as_dicts(rc_cat)
 
     out_path = os.path.join(output_dir, "statistical_analysis.json")
@@ -1110,7 +1153,7 @@ def run_structure_analysis(parquet_path=None, output_dir=None):
     output_dir = output_dir or config.OUTPUT_DIR
     config.ensure_dirs()
     warehouse_dir = advanced_warehouse_dir(output_dir)
-    os.makedirs(warehouse_dir, exist_ok=True)
+    _ensure_storage_dir(warehouse_dir)
 
     spark = _get_spark()
     df = _prepare_advanced_df(spark, parquet_path)
@@ -1141,7 +1184,7 @@ def run_structure_analysis(parquet_path=None, output_dir=None):
         "FROM with_total\n"
     ).format(inst=q(config.COL_INSTITUTION), sales=q(config.COL_MONTHLY_SALES))
     overall_df = spark.sql(sql_hhi_overall)
-    _write_spark_parquet(overall_df, os.path.join(warehouse_dir, "struct_hhi_overall.parquet"))
+    _write_spark_parquet(overall_df, _join_storage_path(warehouse_dir, "struct_hhi_overall.parquet"))
     overall_rows = _collect_as_dicts(overall_df)
     results["hhi_overall"] = overall_rows[0] if overall_rows else {}
 
@@ -1179,7 +1222,7 @@ def run_structure_analysis(parquet_path=None, output_dir=None):
             sales=q(config.COL_MONTHLY_SALES),
         )
         city_df = spark.sql(sql_hhi_city)
-        _write_spark_parquet(city_df, os.path.join(warehouse_dir, "struct_hhi_by_city.parquet"))
+        _write_spark_parquet(city_df, _join_storage_path(warehouse_dir, "struct_hhi_by_city.parquet"))
         results["hhi_by_city"] = _collect_as_dicts(city_df)
 
     # 3) 按品类 HHI
@@ -1210,7 +1253,7 @@ def run_structure_analysis(parquet_path=None, output_dir=None):
             sales=q(config.COL_MONTHLY_SALES),
         )
         cat_df = spark.sql(sql_hhi_cat)
-        _write_spark_parquet(cat_df, os.path.join(warehouse_dir, "struct_hhi_by_category.parquet"))
+        _write_spark_parquet(cat_df, _join_storage_path(warehouse_dir, "struct_hhi_by_category.parquet"))
         results["hhi_by_category"] = _collect_as_dicts(cat_df)
 
     # 4) 帕累托 20/80：按项目销量累计
@@ -1238,7 +1281,7 @@ def run_structure_analysis(parquet_path=None, output_dir=None):
             "ORDER BY rn\n"
         ).format(pn=q(config.COL_PROJECT_NAME), sales=q(config.COL_MONTHLY_SALES))
         pareto_df = spark.sql(sql_pareto)
-        _write_spark_parquet(pareto_df, os.path.join(warehouse_dir, "struct_pareto_projects.parquet"))
+        _write_spark_parquet(pareto_df, _join_storage_path(warehouse_dir, "struct_pareto_projects.parquet"))
         pareto_rows = _collect_as_dicts(pareto_df)
 
         # 关键切点：找到 cum_share 首次 >= 0.5 / 0.8 / 0.95 的项目份额
@@ -1296,8 +1339,8 @@ def run_structure_analysis(parquet_path=None, output_dir=None):
                 for j, cj in enumerate(cities):
                     sim_rows.append({"city_a": ci, "city_b": cj, "similarity": float(sim[i, j])})
             sim_pdf = pd.DataFrame(sim_rows)
-            sim_pdf.to_parquet(
-                os.path.join(warehouse_dir, "struct_city_similarity.parquet"), index=False
+            _write_pandas_parquet(
+                sim_pdf, _join_storage_path(warehouse_dir, "struct_city_similarity.parquet")
             )
 
             # 取每个城市 Top-5 相似城市（排除自身）
@@ -1340,7 +1383,7 @@ def run_compliance_analysis(parquet_path=None, output_dir=None):
     output_dir = output_dir or config.OUTPUT_DIR
     config.ensure_dirs()
     warehouse_dir = advanced_warehouse_dir(output_dir)
-    os.makedirs(warehouse_dir, exist_ok=True)
+    _ensure_storage_dir(warehouse_dir)
 
     spark = _get_spark()
     df = _prepare_advanced_df(spark, parquet_path)
@@ -1415,7 +1458,7 @@ def run_compliance_analysis(parquet_path=None, output_dir=None):
         "ORDER BY risk_score DESC\n"
     ).format(inst=q(config.COL_INSTITUTION))
     inst_df = spark.sql(sql_inst)
-    _write_spark_parquet(inst_df, os.path.join(warehouse_dir, "comp_institution_risk.parquet"))
+    _write_spark_parquet(inst_df, _join_storage_path(warehouse_dir, "comp_institution_risk.parquet"))
     # 全量落 Parquet，前端只取 Top-50 + Bottom-10
     inst_rows = _collect_as_dicts(inst_df)
     results["institution_risk_top"] = inst_rows[:50]
@@ -1441,7 +1484,7 @@ def run_compliance_analysis(parquet_path=None, output_dir=None):
             "ORDER BY udi_mismatch_rate DESC\n"
         ).format(cat=q(config.COL_CATEGORY))
         cat_df = spark.sql(sql_cat)
-        _write_spark_parquet(cat_df, os.path.join(warehouse_dir, "comp_category_risk.parquet"))
+        _write_spark_parquet(cat_df, _join_storage_path(warehouse_dir, "comp_category_risk.parquet"))
         results["category_risk"] = _collect_as_dicts(cat_df)
 
     # 3) 城市合规画像
@@ -1455,7 +1498,7 @@ def run_compliance_analysis(parquet_path=None, output_dir=None):
             "ORDER BY udi_mismatch_rate DESC\n"
         ).format(city=q(config.COL_CITY))
         city_df = spark.sql(sql_city)
-        _write_spark_parquet(city_df, os.path.join(warehouse_dir, "comp_city_risk.parquet"))
+        _write_spark_parquet(city_df, _join_storage_path(warehouse_dir, "comp_city_risk.parquet"))
         results["city_risk"] = _collect_as_dicts(city_df)
 
     out_path = os.path.join(output_dir, "compliance_analysis.json")
